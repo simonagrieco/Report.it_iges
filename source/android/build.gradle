@@ -1,8 +1,16 @@
 buildscript {
-    ext.kotlin_version = '1.6.10'
-    repositories {
+    ext.kotlin_version = '1.7.20'
+    /* repositories {
         google()
         mavenCentral()
+    } */
+    repositories {
+        google() // <-- here
+        jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 
     dependencies {
@@ -26,6 +34,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

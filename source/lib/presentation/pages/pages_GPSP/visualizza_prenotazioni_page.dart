@@ -196,7 +196,8 @@ class _VisualizzaPrenotazioni extends State<VisualizzaPrenotazioni> {
     } else if (utente.tipo == TipoUtente.OperatoreCup) {
       return controller.generaStreamStoricoOperatore(utente);
     } else {
-      throw (NullThrownError());
+      //throw NullThrownError();
+      throw new Exception();
     }
   }
 
