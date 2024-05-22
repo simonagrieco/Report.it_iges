@@ -25,17 +25,17 @@ class _ForumHomeState extends State<ForumHome> {
       appBar: AppBar(
         title: const Text('Forum', style: ThemeText.titoloSezione),
         elevation: 0,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           appBar: AppBar(
             toolbarHeight: 0,
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             bottom: const TabBar(
               labelColor: Color.fromRGBO(219, 29, 69, 1),
               indicatorColor: Color.fromRGBO(219, 29, 69, 1),

@@ -80,7 +80,7 @@ class _PrenotazioneBoxState extends State<PrenotazioneBox> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       child: Column(children: [
         Container(
           margin: const EdgeInsets.all(10),

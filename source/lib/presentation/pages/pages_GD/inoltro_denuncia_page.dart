@@ -307,13 +307,12 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                 style: ThemeText.titoloSezione,
               ),
               elevation: 3,
-              backgroundColor: ThemeText.theme.backgroundColor,
+              backgroundColor: ThemeText.theme.colorScheme.background,
             ),
             body: Theme(
               data: ThemeData(
                 colorScheme: const ColorScheme.light(
-                    primary: Color.fromRGBO(219, 29, 69, 1)),
-                backgroundColor: ThemeText.theme.backgroundColor,
+                    primary: Color.fromRGBO(219, 29, 69, 1)).copyWith(background: ThemeText.theme.colorScheme.background),
               ),
               child: Stepper(
                 controlsBuilder: (context, details) {
@@ -740,7 +739,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                 ],
               ),
             ),
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
           );
         }
       },

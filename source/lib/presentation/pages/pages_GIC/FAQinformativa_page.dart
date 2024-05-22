@@ -6,13 +6,13 @@ class FAQinformativa extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         iconTheme: IconThemeData(
           color: Color.fromRGBO(219, 29, 69, 1),
         ),
       ),
       body: AnimatedContainer(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         duration: const Duration(seconds: 1),
         child: PageView(
           children: <Widget>[

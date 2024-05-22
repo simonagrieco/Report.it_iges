@@ -41,7 +41,7 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
     var formatter = DateFormat('dd-MM-yyyy');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: const Text(
           'Denunce',
           style: ThemeText.titoloSezione,
@@ -50,7 +50,7 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
           color: Color.fromRGBO(219, 29, 69, 1),
         ),
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         child: Column(
           children: [

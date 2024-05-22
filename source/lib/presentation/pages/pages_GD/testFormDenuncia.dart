@@ -305,7 +305,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   Text(
                     state.errorText ?? '',
                     style: TextStyle(
-                      color: Theme.of(context).errorColor,
+                      color: Theme.of(context).colorScheme.error,
                     ),
                   )
                 ],
@@ -344,7 +344,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   Text(
                     state.errorText ?? '',
                     style: TextStyle(
-                      color: Theme.of(context).errorColor,
+                      color: Theme.of(context).colorScheme.error,
                     ),
                   )
                 ],

@@ -27,7 +27,7 @@ class _ForumFormState extends State<ForumForm> {
     return Consumer<SuperUtente?>(
       builder: ((context, utente, child) {
         return Scaffold(
-          backgroundColor: AppTheme().build()!.backgroundColor,
+          backgroundColor: AppTheme().build()!.colorScheme.background,
           appBar: AppBar(
             iconTheme: const IconThemeData(
               color: Color.fromRGBO(219, 29, 69, 1),
@@ -40,7 +40,7 @@ class _ForumFormState extends State<ForumForm> {
               ),
             ),
             elevation: 3,
-            backgroundColor: ThemeText.theme.backgroundColor,
+            backgroundColor: ThemeText.theme.colorScheme.background,
           ),
           body: Form(
             key: _formKey,
@@ -119,7 +119,7 @@ class _ForumFormState extends State<ForumForm> {
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(5),
                             textStyle: MaterialStateProperty.all(
-                                Theme.of(context).textTheme.button),
+                                Theme.of(context).textTheme.labelLarge),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),

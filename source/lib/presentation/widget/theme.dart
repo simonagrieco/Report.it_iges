@@ -7,41 +7,39 @@ class AppTheme {
 
   ThemeData? build() {
     return ThemeData(
-      backgroundColor: const Color.fromRGBO(255, 254, 248, 1),
-      primarySwatch: Colors.red,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       textTheme: const TextTheme(
-        headline1: TextStyle(
+        displayLarge: TextStyle(
           fontSize: 40,
           fontFamily: 'SourceSerifPro',
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
-        headline2: TextStyle(
+        displayMedium: TextStyle(
           fontSize: 25,
           fontFamily: 'IconFont',
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
-        headline3: TextStyle(
+        displaySmall: TextStyle(
           fontSize: 20,
           fontFamily: 'SourceSerifPro',
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
           fontSize: 20,
           fontFamily: 'Ubuntu',
           fontWeight: FontWeight.w200,
           color: Colors.black,
         ),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
           fontSize: 15,
           fontFamily: 'Ubuntu',
           fontWeight: FontWeight.w200,
           color: Colors.black,
         ),
-      ),
+      ), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red).copyWith(background: const Color.fromRGBO(255, 254, 248, 1)),
     );
   }
 }

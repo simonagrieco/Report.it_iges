@@ -20,7 +20,7 @@ class _InformativaState extends State<Informativa> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedContainer(
-        color: ThemeText.theme.backgroundColor,
+        color: ThemeText.theme.colorScheme.background,
         duration: const Duration(seconds: 1),
         child: ListView(
           children: [

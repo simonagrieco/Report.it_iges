@@ -59,7 +59,7 @@ class _VisualizzaStoricoDenunceUtentePageState
             style: ThemeText.titoloSezione,
           ),
           elevation: 0,
-          backgroundColor: ThemeText.theme.backgroundColor,
+          backgroundColor: ThemeText.theme.colorScheme.background,
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         body: DefaultTabController(
@@ -67,7 +67,7 @@ class _VisualizzaStoricoDenunceUtentePageState
           child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 0,
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).colorScheme.background,
               bottom: const TabBar(
                 labelColor: Color.fromRGBO(219, 29, 69, 1),
                 indicatorColor: Color.fromRGBO(219, 29, 69, 1),
@@ -98,7 +98,7 @@ class _VisualizzaStoricoDenunceUtentePageState
               title: const Text('Tabs Demo'),
             ),
             body: Container(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               child: StreamBuilder(
                 stream: denunce,
                 builder: (context, snapshot) {

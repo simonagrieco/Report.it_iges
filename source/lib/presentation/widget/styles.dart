@@ -20,9 +20,7 @@ class Palette {
 
 abstract class ThemeText {
   static ThemeData theme = ThemeData(
-    backgroundColor: const Color.fromRGBO(255, 254, 248, 1),
-    primarySwatch: Palette.coloriPalette,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
+    visualDensity: VisualDensity.adaptivePlatformDensity, colorScheme: ColorScheme.fromSwatch(primarySwatch: Palette.coloriPalette).copyWith(background: const Color.fromRGBO(255, 254, 248, 1)),
   );
 
   static const TextStyle titoloGIC = TextStyle(

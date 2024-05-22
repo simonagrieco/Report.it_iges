@@ -11,7 +11,7 @@ class HomeChat extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Aiuto Chat-bot", style: ThemeText.titoloSezione),
-        backgroundColor: ThemeText.theme.backgroundColor,
+        backgroundColor: ThemeText.theme.colorScheme.background,
         iconTheme: IconThemeData(color: ThemeText.theme.primaryColor),
       ),
       body: crealista(list: ChatBotController().retrieveAll()),
@@ -35,7 +35,7 @@ class _crealistaState extends State<crealista> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: ThemeText.theme.backgroundColor,
+        color: ThemeText.theme.colorScheme.background,
         child: FutureBuilder(
             future: widget.list,
             builder: (context, snapshot) {

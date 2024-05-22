@@ -53,7 +53,7 @@ class _VisualizzaPrenotazioni extends State<VisualizzaPrenotazioni> {
             overflow: TextOverflow.ellipsis,
           ),
           elevation: 0,
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         body: DefaultTabController(
@@ -61,7 +61,7 @@ class _VisualizzaPrenotazioni extends State<VisualizzaPrenotazioni> {
           child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 0,
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).colorScheme.background,
               bottom: const TabBar(
                 labelColor: Color.fromRGBO(219, 29, 69, 1),
                 indicatorColor: Color.fromRGBO(219, 29, 69, 1),
@@ -92,7 +92,7 @@ class _VisualizzaPrenotazioni extends State<VisualizzaPrenotazioni> {
               title: const Text('Tabs Demo'),
             ),
             body: Container(
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.background,
               child: TabBarView(
                 children: [
                   RefreshIndicator(

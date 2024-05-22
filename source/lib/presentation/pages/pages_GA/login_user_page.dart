@@ -30,7 +30,7 @@ class _LoginWorkerState extends State<LoginWorker> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         iconTheme: IconThemeData(color: Color.fromRGBO(219, 29, 69, 1)),
       ),

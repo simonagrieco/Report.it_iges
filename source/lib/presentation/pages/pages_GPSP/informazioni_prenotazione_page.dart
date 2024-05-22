@@ -67,12 +67,12 @@ class _InformazioniPrenotazione extends State<InformazioniPrenotazione> {
               appBar: AppBar(
                 title: const Text('Dettagli prenotazione',
                     style: ThemeText.titoloSezione),
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 iconTheme: const IconThemeData(
                   color: Color.fromRGBO(219, 29, 69, 1),
                 ),
               ),
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).colorScheme.background,
               body: SingleChildScrollView(
                   child: Column(children: [
                 Container(
@@ -266,7 +266,7 @@ class _InformazioniPrenotazione extends State<InformazioniPrenotazione> {
                                           color: Color.fromRGBO(219, 29, 69, 1),
                                         ),
                                         backgroundColor:
-                                            Theme.of(context).backgroundColor,
+                                            Theme.of(context).colorScheme.background,
                                         title: const Text(
                                           'Impegnativa',
                                           style: ThemeText.titoloSezione,

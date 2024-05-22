@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: ThemeText.theme.backgroundColor,
+      backgroundColor: ThemeText.theme.colorScheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
           reverse: true,

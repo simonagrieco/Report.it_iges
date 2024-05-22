@@ -164,14 +164,13 @@ class _InoltroPrenotazione extends State<InoltroPrenotazione> {
         title:
             const Text("Supporto Psicologico", style: ThemeText.titoloSezione),
         elevation: 3,
-        backgroundColor: ThemeText.theme.backgroundColor,
+        backgroundColor: ThemeText.theme.colorScheme.background,
       ),
       body: Theme(
         data: ThemeData(
           colorScheme: const ColorScheme.light(
             primary: Color.fromRGBO(219, 29, 69, 1),
-          ),
-          backgroundColor: ThemeText.theme.backgroundColor,
+          ).copyWith(background: ThemeText.theme.colorScheme.background),
         ),
         child: Stepper(
           controlsBuilder: (context, details) {
@@ -426,7 +425,7 @@ class _InoltroPrenotazione extends State<InoltroPrenotazione> {
           ],
         ),
       ),
-      backgroundColor: ThemeText.theme.backgroundColor,
+      backgroundColor: ThemeText.theme.colorScheme.background,
     );
   }
 
