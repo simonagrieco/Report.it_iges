@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
               elevation: 8,
 
               //configuration for SnakeNavigationBar.color
-              snakeViewColor: Color.fromRGBO(219, 29, 69, 1), //E' QUESTOOOOOOO
+              snakeViewColor: Color.fromRGBO(219, 29, 69, 1),
               selectedItemColor:
                   snakeShape == SnakeShape.indicator ? selectedColor : null,
               unselectedItemColor: Colors.blueGrey,

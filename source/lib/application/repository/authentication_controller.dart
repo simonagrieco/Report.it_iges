@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:report_it/application/entity/entity_GA/amministratore_entity.dart';
 import 'package:report_it/data/models/AutenticazioneDAO.dart';
 import 'package:report_it/application/entity/entity_GA/spid_entity.dart';
 import '../entity/entity_GA/operatoreCUP_entity.dart';
@@ -27,6 +28,7 @@ class AuthenticationService {
       UffPolGiud? uff =
           await AutenticazioneDAO().RetrieveUffPolGiudByID(user.uid);
       OperatoreCUP? op = await AutenticazioneDAO().RetrieveCUPByID(user.uid);
+      Amministratore? amm= await AutenticazioneDAO().RetrieveAmministratoreByID(user.uid); //aggiunta
       if (ut != null) {
         return SuperUtente(user.uid, TipoUtente.Utente);
       } else if (uff != null) {
@@ -43,7 +45,15 @@ class AuthenticationService {
             citta: op.cittaASL,
             indirizzo: op.indirizzoASL,
             provincia: op.provinciaASL);
+      } else if (amm != null) { // il nuovo tipo di utente
+        print("sei un amministratore");
+        return SuperUtente(user.uid, TipoUtente.Amministratore,
+            cap: amm.capAmm,
+            citta: amm.cittaAmm,// Aggiungi i campi specifici per Amministratore
+            indirizzo: amm.indirizzoAmm,
+            provincia: amm.provinciaAmm);
       }
+
     }
     return null;
   }

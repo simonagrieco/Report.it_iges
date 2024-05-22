@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:report_it/application/entity/entity_GA/adapter_amministratore.dart';
 import 'package:report_it/application/entity/entity_GA/adapter_operatoreCUP.dart';
 import 'package:report_it/application/entity/entity_GA/adapter_spid.dart';
 import 'package:report_it/application/entity/entity_GA/adapter_uffpolgiud.dart';
 import 'package:report_it/application/entity/entity_GA/adapter_utente.dart';
+import 'package:report_it/application/entity/entity_GA/amministratore_entity.dart';
 
 import '../../application/entity/entity_GA/operatoreCUP_entity.dart';
 import '../../application/entity/entity_GA/spid_entity.dart';
@@ -94,6 +96,24 @@ class AutenticazioneDAO {
     return u;
   }
 
+  //AGGIUNTO METODO PER NUOVO UTENTE AMMINISTRATORE
+  // ignore: non_constant_identifier_names
+  Future<Amministratore?> RetrieveAmministratoreByID(String uid) async {
+    var ref = database.collection("Amministratore").doc(uid);
+
+    var u = await ref.get().then(((value) {
+      if (value.data() == null) {
+        return null;
+      } else {
+        Amministratore u = AdapterAmministratore().fromJson(value.data()!);
+
+        return u;
+      }
+    }));
+
+    return u;
+  }
+
 // ignore: non_constant_identifier_names
   Future<List<Utente?>> RetrieveAllUtente() async {
     var ref = database.collection("Utente");
@@ -160,6 +180,26 @@ class AutenticazioneDAO {
     var u = await ref.get().then((value) async {
       for (var c in value.docs) {
         OperatoreCUP ut = AdapterOperatoreCUP().fromJson(c.data());
+        lista.add(ut);
+      }
+
+      return lista;
+    });
+
+    return u;
+  }
+
+  //NUOVO METODO PER AMMINISTRATORE
+
+  // ignore: non_constant_identifier_names
+  Future<List<Amministratore?>> RetrieveAllAmministratore() async {
+    var ref = database.collection("Amministratore");
+
+    List<Amministratore> lista = List.empty(growable: true);
+
+    var u = await ref.get().then((value) async {
+      for (var c in value.docs) {
+        Amministratore ut = AdapterAmministratore().fromJson(c.data());
         lista.add(ut);
       }
 
