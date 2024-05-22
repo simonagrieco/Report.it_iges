@@ -25,8 +25,7 @@ class AuthenticationService {
       return null;
     } else {
       Utente? ut = await AutenticazioneDAO().RetrieveUtenteByID(user.uid);
-      UffPolGiud? uff =
-          await AutenticazioneDAO().RetrieveUffPolGiudByID(user.uid);
+      UffPolGiud? uff = await AutenticazioneDAO().RetrieveUffPolGiudByID(user.uid);
       OperatoreCUP? op = await AutenticazioneDAO().RetrieveCUPByID(user.uid);
       Amministratore? amm= await AutenticazioneDAO().RetrieveAmministratoreByID(user.uid); //aggiunta
       if (ut != null) {
