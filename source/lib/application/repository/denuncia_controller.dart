@@ -183,7 +183,9 @@ class DenunciaController {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoUff: null,
         indirizzoCaserma: null,
-        gradoUff: null);
+        gradoUff: null,
+        regioneDenunciante: regioneDenunciante, //AGGIUNTO
+    );
 
     DenunciaDao().addDenuncia(denuncia).then((String id) {
       denuncia.setId = id;

@@ -79,8 +79,9 @@ dependencies:
 
   very_good_analysis: ^3.1.0
 
-
   intl: any
+  fl_chart: ^0.68.0
+
 dependency_overrides:
   intl: any
 

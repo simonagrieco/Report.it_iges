@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,29 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  // Chiama la funzione per aggiungere il campo a tutti i documenti
+  await addFieldToAllDocuments();
+
   runApp(MyApp());
+}
+
+Future<void> addFieldToAllDocuments() async {
+  // Riferimento alla tua raccolta
+  CollectionReference collectionRef = FirebaseFirestore.instance.collection('Denuncia');
+
+  try {
+    // Ottieni tutti i documenti della raccolta
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    // Itera attraverso tutti i documenti
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      // Aggiungi il nuovo campo a ciascun documento
+      await doc.reference.update({'RegioneDenunciante': 'null'});
+      print('Campo aggiunto a documento con ID: ${doc.id}');
+    }
+  } catch (e) {
+    print('Errore durante l\'aggiunta del campo: $e');
+  }
 }
 
 class MyApp extends StatelessWidget {
