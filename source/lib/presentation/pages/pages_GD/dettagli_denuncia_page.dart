@@ -129,6 +129,25 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
                                     ],
                                   ),
                                 ),
+                                //AGGIUNTO
+                                RichText(
+                                  text: TextSpan(
+                                    text: "Regione: ",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: "${d.regioneDenunciante}",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 RichText(
                                   text: TextSpan(
                                     text: "Indirizzo: ",

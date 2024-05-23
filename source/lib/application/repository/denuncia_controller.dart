@@ -65,6 +65,7 @@ class DenunciaController {
   Future<String?> addDenunciaControl(
       {required String nomeDenunciante,
       required String cognomeDenunciante,
+      required String regioneDenunciante, //AGGIUNTO
       required String indirizzoDenunciante,
       required String capDenunciante,
       required String provinciaDenunciante,

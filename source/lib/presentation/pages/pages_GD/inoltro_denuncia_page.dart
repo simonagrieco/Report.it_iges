@@ -30,6 +30,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   late TextEditingController nameController;
   late TextEditingController surnameController;
   late TextEditingController numberController;
+  late TextEditingController regioneController; //AGGIUNTO
   late TextEditingController indirizzoController;
   late TextEditingController capController;
   late TextEditingController provinciaController;
@@ -62,6 +63,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
     nameController = TextEditingController(text: spid.nome);
     surnameController = TextEditingController(text: spid.cognome);
     numberController = TextEditingController(text: spid.numCellulare);
+    regioneController = TextEditingController();
     indirizzoController = TextEditingController(text: spid.domicilioFisico);
     capController = TextEditingController();
     provinciaController = TextEditingController(text: spid.provinciaNascita);
@@ -390,6 +392,20 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci il cognome.';
                               }
+                              return null;
+                            },
+                          ),
+                          //AGGIUNTO
+                          TextFormField(
+                            decoration:
+                            const InputDecoration(labelText: 'Regione'),
+                            controller: regioneController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Per favore, inserisci la regione.';
+                              } /* else if (!regexIndirizzo.hasMatch(value)) {
+                                return 'Per favore, inserisci un indirizzo valido.';
+                              } */
                               return null;
                             },
                           ),
@@ -792,6 +808,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
     var result = control.addDenunciaControl(
         nomeDenunciante: nameController.text,
         cognomeDenunciante: surnameController.text,
+        regioneDenunciante: regioneController.text, //AGGIUNTO
         indirizzoDenunciante: indirizzoController.text,
         capDenunciante: capController.text,
         provinciaDenunciante: provinciaController.text,
@@ -806,7 +823,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
         descrizione: descrizioneController.text,
         cognomeVittima: cognomeVittimaController.text,
         consenso: consensoController,
-        alreadyFiled: alreadyFiledController);
+        alreadyFiled: alreadyFiledController,
+    );
 
     print(await result);
   }

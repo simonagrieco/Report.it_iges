@@ -65,6 +65,9 @@ dependencies:
   location: ^4.2.0
   json_path: ^0.4.2
 
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.1
+
   flutter_localizations:
     sdk: flutter
 

@@ -7,6 +7,7 @@ class Denuncia {
   String? id, gradoUff;
   String nomeDenunciante,
       cognomeDenunciante,
+      regioneDenunciante, //AGGIUNTO
       indirizzoDenunciante,
       capDenunciante,
       provinciaDenunciante,
@@ -36,6 +37,7 @@ class Denuncia {
       required this.idUtente,
       required this.nomeDenunciante,
       required this.cognomeDenunciante,
+      required this.regioneDenunciante, //AGGIUNTO
       required this.indirizzoDenunciante,
       required this.capDenunciante,
       required this.provinciaDenunciante,
@@ -75,6 +77,10 @@ class Denuncia {
   get getCognomeDenunciante => cognomeDenunciante;
   set setCognomeDenunciante(cognomeDenunciante) =>
       cognomeDenunciante = cognomeDenunciante;
+
+  get getRegioneDenunciate => regioneDenunciante; //AGGIUNTP
+  set setRegioneDenunciate(regioneDenunciate) =>
+      this.regioneDenunciante = regioneDenunciate;
 
   get getIndirizzoDenunciante => indirizzoDenunciante;
   set setIndirizzoDenunciante(indirizzoDenunciante) =>
@@ -134,6 +140,7 @@ class Denuncia {
   get getIndirizzoCaserma => indirizzoCaserma;
   set setIndirizzoCaserma(indirizzoCaserma) =>
       this.indirizzoCaserma = indirizzoCaserma;
+
 
 //   factory Denuncia.fromJson(Map<String, dynamic> json) {
 //     return Denuncia(

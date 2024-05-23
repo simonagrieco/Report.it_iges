@@ -12,6 +12,7 @@ class AdapterDenuncia implements Adapter {
         idUtente: json["IDUtente"],
         nomeDenunciante: json["NomeDenunciante"],
         cognomeDenunciante: json["CognomeDenunciante"],
+        regioneDenunciante: json["RegioneDenunciante"], //AGGIUNTO
         indirizzoDenunciante: json["IndirizzoDenunciante"],
         capDenunciante: json["CapDenunciante"],
         provinciaDenunciante: json["ProvinciaDenunciante"],
@@ -49,6 +50,7 @@ class AdapterDenuncia implements Adapter {
         idUtente: map["IDUtente"],
         nomeDenunciante: map["NomeDenunciante"],
         cognomeDenunciante: map["CognomeDenunciante"],
+        regioneDenunciante: map["RegioneDenunciante"], //AGGIUNTO
         indirizzoDenunciante: map["IndirizzoDenunciante"],
         capDenunciante: map["CapDenunciante"],
         provinciaDenunciante: map["ProvinciaDenunciante"],
@@ -84,6 +86,7 @@ class AdapterDenuncia implements Adapter {
       "IDUtente": denuncia.idUtente,
       "NomeDenunciante": denuncia.nomeDenunciante,
       "CognomeDenunciante": denuncia.cognomeDenunciante,
+      "RegioneDenunciate": denuncia.regioneDenunciante, //AGGIUNTO
       "IndirizzoDenunciante": denuncia.indirizzoDenunciante,
       "CapDenunciante": denuncia.capDenunciante,
       "ProvinciaDenunciante": denuncia.provinciaDenunciante,
