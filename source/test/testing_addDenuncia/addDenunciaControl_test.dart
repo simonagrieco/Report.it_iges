@@ -35,6 +35,7 @@ void main() {
   funzioneTest(
       {required String nomeDenunciante,
       required String cognomeDenunciante,
+      required String regioneDenunciante, //AGGIUNTO
       required String indirizzoDenunciante,
       required String capDenunciante,
       required String provinciaDenunciante,
@@ -157,7 +158,9 @@ void main() {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoUff: null,
         indirizzoCaserma: null,
-        gradoUff: null);
+        gradoUff: null,
+        regioneDenunciante: regioneDenunciante, //AGGIUNTO
+    );
 
     when(dao.addDenuncia(denuncia)).thenAnswer((realInvocation) => Future((() {
           return "someuid";
@@ -174,6 +177,7 @@ void main() {
   group("AddDenuncia", () {
     test("TC_GD.1.1_1 ", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Rossi";
@@ -195,6 +199,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante, //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -216,6 +221,7 @@ void main() {
 
     test("TC_GD.1.1_2", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante =
@@ -252,11 +258,14 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante,
+              regioneDenunciante: regioneDenunciante, //AGGIUNTO
+      ) ==
           "La lunghezza dell’indirizzo non è valida");
     }));
     test("TC_GD.1.1_3", (() async {
       String capDenunciante = "84016777";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -278,6 +287,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante, //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -298,6 +308,7 @@ void main() {
     }));
     test("TC_GD.1.1_4", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -319,6 +330,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante, //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -340,6 +352,7 @@ void main() {
 
     test("TC_GD.1.1_5", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -361,6 +374,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -382,6 +396,7 @@ void main() {
 
     test("TC_GD.1.1_6", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -403,6 +418,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -424,6 +440,7 @@ void main() {
 
     test("TC_GD.1.1_7", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -445,6 +462,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -466,6 +484,7 @@ void main() {
 
     test("TC_GD.1.1_8", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -487,6 +506,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -508,6 +528,7 @@ void main() {
 
     test("TC_GD.1.1_9", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -530,6 +551,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -551,6 +573,7 @@ void main() {
 
     test("TC_GD.1.1_10", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -574,6 +597,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -595,6 +619,7 @@ void main() {
 
     test("TC_GD.1.1_11", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -616,6 +641,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -637,6 +663,7 @@ void main() {
 
     test("TC_GD.1.1_12", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -658,6 +685,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -679,6 +707,7 @@ void main() {
 
     test("TC_GD.1.1_13", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante =
           "Albertofeargewrgergfawrtegwegweartgvrwtgvterwgveartw";
       String cognomeDenunciante = "Genovese";
@@ -701,6 +730,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -722,6 +752,7 @@ void main() {
 
     test("TC_GD.1.1_14", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante =
           "Genoveseefgwefgwerfgewgfwerfgewgfewrtfgerfgrewfgew";
@@ -744,6 +775,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -765,6 +797,7 @@ void main() {
 
     test("TC_GD.1.1_15", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -786,6 +819,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -807,6 +841,7 @@ void main() {
 
     test("TC_GD.1.1_16", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -828,6 +863,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -849,6 +885,7 @@ void main() {
 
     test("TC_GD.1.1_17", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -870,6 +907,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -891,6 +929,7 @@ void main() {
 
     test("TC_GD.1.1_18", (() async {
       String capDenunciante = "84016";
+      String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -912,6 +951,7 @@ void main() {
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -932,3 +972,5 @@ void main() {
     }));
   });
 }
+
+//AGGIUNGERE CASO TEST "REGIONE" ???
