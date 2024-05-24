@@ -78,9 +78,9 @@ class Denuncia {
   set setCognomeDenunciante(cognomeDenunciante) =>
       cognomeDenunciante = cognomeDenunciante;
 
-  get getRegioneDenunciate => regioneDenunciante; //AGGIUNTP
-  set setRegioneDenunciate(regioneDenunciate) =>
-      this.regioneDenunciante = regioneDenunciate;
+  get getRegioneDenunciante => regioneDenunciante; //AGGIUNTO
+  set setRegioneDenunciante(regioneDenunciante) =>
+      this.regioneDenunciante = regioneDenunciante;
 
   get getIndirizzoDenunciante => indirizzoDenunciante;
   set setIndirizzoDenunciante(indirizzoDenunciante) =>

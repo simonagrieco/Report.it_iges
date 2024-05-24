@@ -86,7 +86,7 @@ class AdapterDenuncia implements Adapter {
       "IDUtente": denuncia.idUtente,
       "NomeDenunciante": denuncia.nomeDenunciante,
       "CognomeDenunciante": denuncia.cognomeDenunciante,
-      "RegioneDenunciate": denuncia.regioneDenunciante, //AGGIUNTO
+      "RegioneDenunciante": denuncia.regioneDenunciante, //AGGIUNTO
       "IndirizzoDenunciante": denuncia.indirizzoDenunciante,
       "CapDenunciante": denuncia.capDenunciante,
       "ProvinciaDenunciante": denuncia.provinciaDenunciante,
