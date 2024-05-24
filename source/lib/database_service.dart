@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//classe per l'aggiunta del campo
+
 class DatabaseService {
   final CollectionReference collectionRef = FirebaseFirestore.instance.collection('Denuncia');
 
