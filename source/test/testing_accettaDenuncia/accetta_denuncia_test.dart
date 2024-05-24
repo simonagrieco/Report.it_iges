@@ -117,6 +117,7 @@ void main() {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
+        regioneDenunciante: 'regioneDenunciate', //AGGIUNTO
       );
       SuperUtente utente =
           SuperUtente("MjQfAm3PDdOS3BUFJWkrrGBdHyR2", TipoUtente.Utente);
@@ -138,6 +139,7 @@ void main() {
         descrizione: 'descrizione',
         cognomeVittima: 'cognomeVittima',
         coordCaserma: null,
+        regioneDenunciante: 'regioneDenunciate', //AGGIUNTO
         indirizzoCaserma: 'indirizzoCaserma',
         emailDenunciante: 'emailDenunciante',
         denunciato: 'denunciato',
@@ -193,6 +195,7 @@ void main() {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
+        regioneDenunciante: 'regioneDenunciante' //AGGIUNTO
       );
       SuperUtente utente =
           SuperUtente("1PZNxmcGrWVN2ezktgyKFVRWdBS2", TipoUtente.UffPolGiud);
@@ -233,6 +236,7 @@ void main() {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
+        regioneDenunciante: 'regioneDenunciante', //AGGIUNTO
       );
       SuperUtente utente =
           SuperUtente("1PZNxmcGrWVN2ezktgyKFVRWdBS2", TipoUtente.UffPolGiud);
