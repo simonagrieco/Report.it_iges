@@ -3,6 +3,8 @@ import 'package:report_it/application/entity/entity_GA/tipo_ufficiale.dart';
 import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 
+import 'dart:io';
+
 class Denuncia {
   String? id, gradoUff;
   String nomeDenunciante,
@@ -31,6 +33,9 @@ class Denuncia {
   String idUtente;
   CategoriaDenuncia categoriaDenuncia;
   StatoDenuncia statoDenuncia;
+
+  // Nuovo campo per gli URL dei file multimediali
+  List<String> mediaUrls;
 
   Denuncia(
       {required this.id,
@@ -62,7 +67,9 @@ class Denuncia {
       required this.idUff,
       required this.tipoUff,
       required this.gradoUff,
-      required this.indirizzoCaserma});
+      required this.indirizzoCaserma,
+      required this.mediaUrls, //aggiunto per immagini
+      });
 
   get getId => id;
   set setId(id) => this.id = id;

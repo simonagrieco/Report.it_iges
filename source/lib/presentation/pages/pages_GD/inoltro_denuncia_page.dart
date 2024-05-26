@@ -10,6 +10,14 @@ import 'package:report_it/application/repository/denuncia_controller.dart';
 import '../../../application/entity/entity_GA/super_utente.dart';
 import '../../widget/styles.dart';
 
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+List<File> _selectedImages = [];
+final ImagePicker _picker = ImagePicker();
+
+
 class InoltroDenuncia extends StatefulWidget {
   final SuperUtente utente;
   final SPID spid;
@@ -39,6 +47,9 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   late TextEditingController nomeVittimaController;
   late TextEditingController cognomeVittimaController;
   late TextEditingController descrizioneController;
+  //Aggiunto per img
+  List<File> _selectedImages = [];
+  final ImagePicker _picker = ImagePicker();
 
   final regexEmail = RegExp(r"^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$");
   //   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -57,6 +68,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   String? alreadyFiledRadio;
   bool consensoController = false;
   late bool alreadyFiledController;
+
+
 
   @override
   void initState() {
@@ -238,6 +251,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                         return null;
                       },
                     ),
+                    SizedBox(height: 20,),
                   ],
                 ),
               )
@@ -722,6 +736,35 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                               return null;
                             },
                           ),
+                          SizedBox(height: 40,),
+                          //Aggiunto per img
+                          Text(
+                            "Carica le immagini relative alla denuncia",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.italic, fontSize: 16),
+                          ),
+                          SizedBox(height: 10,),
+                          ElevatedButton(
+                            onPressed: _pickImages,
+                            child: const Text("Seleziona immagini"),
+                          ),
+                          const SizedBox(height: 10),
+                          _selectedImages.isNotEmpty
+                              ? Wrap(
+                            children: _selectedImages.map((image) {
+                              return Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Image.file(
+                                  image,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }).toList(),
+                          )
+                              : const Text("Nessuna immagine selezionata."),
+
+                          SizedBox(height: 20,)
                         ],
                       ),
                     ),
@@ -824,8 +867,26 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
         cognomeVittima: cognomeVittimaController.text,
         consenso: consensoController,
         alreadyFiled: alreadyFiledController,
+       imageFiles: _selectedImages, //aggiunto per img
     );
 
     print(await result);
   }
+
+  Future<void> _pickImages() async {
+    // Richiedi permessi
+    if (await Permission.photos.request().isGranted) {
+      // I permessi sono concessi
+      final List<XFile>? pickedFiles = await _picker.pickMultiImage();
+      if (pickedFiles != null && pickedFiles.isNotEmpty) {
+        setState(() {
+          _selectedImages = pickedFiles.map((file) => File(file.path)).toList();
+        });
+      }
+    } else {
+      // I permessi non sono concessi
+      print('Permesso per accedere alle foto negato');
+    }
+  }
+
 }

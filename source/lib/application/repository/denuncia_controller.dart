@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:report_it/data/models/AutenticazioneDAO.dart';
 import 'package:report_it/application/entity/entity_GA/spid_entity.dart';
 import 'package:report_it/application/entity/entity_GD/adapter_denuncia.dart';
@@ -7,6 +9,8 @@ import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 import 'package:report_it/application/entity/entity_GA/tipo_utente.dart';
 import 'package:report_it/application/entity/entity_GA/uffPolGiud_entity.dart';
+
+import 'dart:io';
 
 import "../../data/models/denuncia_dao.dart";
 import '../entity/entity_GD/denuncia_entity.dart';
@@ -62,6 +66,42 @@ class DenunciaController {
     }
   }
 
+
+  //Aggiunti per inserimento immagini
+  Future<File?> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    }
+    return null;
+  }
+
+  Future<String?> _uploadImage(File image) async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref();
+      final imagesRef = storageRef.child('denunce/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final uploadTask = imagesRef.putFile(image);
+      final snapshot = await uploadTask.whenComplete(() => null);
+
+      final downloadURL = await snapshot.ref.getDownloadURL();
+      return downloadURL;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<String?> pickAndUploadImage() async {
+    File? image = await _pickImage();
+    if (image != null) {
+      String? url = await _uploadImage(image);
+      return url;
+    }
+    return null;
+  }
+
   Future<String?> addDenunciaControl(
       {required String nomeDenunciante,
       required String cognomeDenunciante,
@@ -80,7 +120,9 @@ class DenunciaController {
       required String descrizione,
       required String cognomeVittima,
       required bool consenso,
-      required bool? alreadyFiled}) async {
+      required bool? alreadyFiled,
+      required List<File> imageFiles // Aggiunto il parametro per il file immagine
+      }) async {
     Timestamp today = Timestamp.now();
     final regexEmail = RegExp(r"^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$");
     //   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -155,6 +197,15 @@ class DenunciaController {
       return ("Il campo che indica se la pratica è stata già precedentemente archiviata non è valido");
     }
 
+    // Caricamento delle immagini e ottenimento degli URL
+    List<String> imageUrls = [];
+    for (File image in imageFiles) {
+      String? imageUrl = await _uploadImage(image);
+      if (imageUrl != null) {
+        imageUrls.add(imageUrl);
+      }
+    }
+
     Denuncia denuncia = Denuncia(
         id: null,
         nomeDenunciante: nomeDenunciante,
@@ -185,14 +236,19 @@ class DenunciaController {
         tipoUff: null,
         indirizzoCaserma: null,
         gradoUff: null,
-        regioneDenunciante: regioneDenunciante, //AGGIUNTO
+        regioneDenunciante: regioneDenunciante, //Aggiunto
+        mediaUrls: imageUrls, //Aggiunto per img
     );
 
     DenunciaDao().addDenuncia(denuncia).then((String id) {
       denuncia.setId = id;
       DenunciaDao().updateId(denuncia.getId);
+
     });
+
     return "OK";
+
+
   }
 
   Future<String> accettaDenuncia(Denuncia denuncia, SuperUtente utente) async {

@@ -4,6 +4,8 @@ import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
 import 'package:report_it/application/entity/entity_GD/denuncia_entity.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 
+import 'dart:io';
+
 class AdapterDenuncia implements Adapter {
   @override
   fromJson(Map<String, dynamic> json) {
@@ -40,7 +42,9 @@ class AdapterDenuncia implements Adapter {
             ? null
             : TipoUfficiale.values.byName(json["TipoUff"]),
         indirizzoCaserma: json["IndirizzoCaserma"],
-        gradoUff: json["GradoUff"]);
+        gradoUff: json["GradoUff"],
+        mediaUrls: List<String>.from(json["MediaUrls"] ?? []), //Aggiunto per immagini
+    );
   }
 
   @override
@@ -75,7 +79,9 @@ class AdapterDenuncia implements Adapter {
         idUff: map["IDUff"],
         tipoUff: map["TipoUff"],
         indirizzoCaserma: map["IndirizzoiCaserma"],
-        gradoUff: map["GradoUff"]);
+        gradoUff: map["GradoUff"],
+        mediaUrls: List<String>.from(map["MediaUrls"] ?? []), //aggiunto per img
+    );
   }
 
   @override
@@ -111,7 +117,8 @@ class AdapterDenuncia implements Adapter {
       "CognomeVittima": denuncia.cognomeVittima,
       "IDUff": denuncia.idUff,
       "TipoUff": denuncia.tipoUff,
-      "GradoUff": denuncia.gradoUff
+      "GradoUff": denuncia.gradoUff,
+      "MediaUrls": denuncia.mediaUrls, //aggiunto per img
     };
   }
 }
