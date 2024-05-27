@@ -436,6 +436,25 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
                                 overflow: TextOverflow.fade),
                           ),
                         ),
+                        //Aggiunto per img
+                        Container(
+                          decoration: ThemeText.boxDettaglio,
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          child: InputDecorator(
+                            decoration: const InputDecoration(
+                              labelText: 'Contenuti multimediali caricati ',
+                              labelStyle: ThemeText.titoloDettaglio,
+                              border: InputBorder.none,
+                            ),
+                            child: d.mediaUrls.isNotEmpty // Controlla se ci sono URL multimediali
+                                ? Column(
+                              children: d.mediaUrls.map((url) => Image.network(url)).toList(), // Mostra ogni immagine
+                                ) // Se sì, mostra l'immagine
+                                : const Text('Nessun contenuto multimediale condiviso'), // Altrimenti mostra il testo
+                          ),
+                        ),
+
                         Container(
                           decoration: ThemeText.boxDettaglio,
                           padding: const EdgeInsets.symmetric(

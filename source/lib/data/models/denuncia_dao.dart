@@ -10,12 +10,29 @@ import '../../application/entity/entity_GD/stato_denuncia.dart';
 var db = FirebaseFirestore.instance;
 
 class DenunciaDao {
-  Future<String> addDenuncia(Denuncia denuncia) {
+
+  /*Future<String> addDenuncia(Denuncia denuncia) {
     Future<String> id = db
         .collection("Denuncia")
         .add(AdapterDenuncia().toMap(denuncia))
         .then((doc) => doc.id);
+
     return id;
+  } */
+  Future<String> addDenuncia(Denuncia denuncia) async {
+    try {
+      // Aggiungi la denuncia al database e ottieni l'ID
+      var docRef = await db.collection("Denuncia").add(AdapterDenuncia().toMap(denuncia));
+      String id = docRef.id;
+
+      // Aggiungi le URL delle immagini al documento appena creato
+      await docRef.update({"mediaUrls": denuncia.mediaUrls});
+
+      return id;
+    } catch (e) {
+      print(e);
+      return ""; // o un altro valore che indichi un errore
+    }
   }
 
   void updateId(String id) async {

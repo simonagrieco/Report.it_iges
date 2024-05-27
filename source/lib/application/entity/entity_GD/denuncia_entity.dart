@@ -3,8 +3,6 @@ import 'package:report_it/application/entity/entity_GA/tipo_ufficiale.dart';
 import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 
-import 'dart:io';
-
 class Denuncia {
   String? id, gradoUff;
   String nomeDenunciante,
@@ -37,8 +35,8 @@ class Denuncia {
   // Nuovo campo per gli URL dei file multimediali
   List<String> mediaUrls;
 
-  Denuncia(
-      {required this.id,
+  Denuncia({
+      required this.id,
       required this.idUtente,
       required this.nomeDenunciante,
       required this.cognomeDenunciante,
@@ -148,106 +146,6 @@ class Denuncia {
   set setIndirizzoCaserma(indirizzoCaserma) =>
       this.indirizzoCaserma = indirizzoCaserma;
 
-
-//   factory Denuncia.fromJson(Map<String, dynamic> json) {
-//     return Denuncia(
-//         id: json["ID"],
-//         idUtente: json["IDUtente"],
-//         nomeDenunciante: json["NomeDenunciante"],
-//         cognomeDenunciante: json["CognomeDenunciante"],
-//         indirizzoDenunciante: json["IndirizzoDenunciante"],
-//         capDenunciante: json["CapDenunciante"],
-//         provinciaDenunciante: json["ProvinciaDenunciante"],
-//         cellulareDenunciante: json["CellulareDenunciante"],
-//         emailDenunciante: json["EmailDenunciante"],
-//         tipoDocDenunciante: json["TipoDocDenunciante"],
-//         numeroDocDenunciante: json["NumeroDocDenunciante"],
-//         scadenzaDocDenunciante: json["ScadenzaDocDenunciante"],
-//         dataDenuncia: json["DataDenuncia"],
-//         categoriaDenuncia:
-//             CategoriaDenuncia.values.byName(json["CategoriaDenuncia"]),
-//         nomeVittima: json["NomeVittima"],
-//         denunciato: json["Denunciato"],
-//         alreadyFiled: json["AlreadyFiled"],
-//         consenso: json["Consenso"],
-//         descrizione: json["Descrizione"],
-//         statoDenuncia: StatoDenuncia.values.byName(json["Stato"]),
-//         nomeCaserma: json["NomeCaserma"],
-//         coordCaserma: json["CoordCaserma"],
-//         nomeUff: json["NomeUff"],
-//         cognomeUff: json["CognomeUff"],
-//         cognomeVittima: json["CognomeVittima"],
-//         idUff: json["IDUff"],
-//         tipoUff: json["TipoUff"]==null?null:TipoUfficiale.values.byName(json["TipoUff"]),
-//         gradoUff: json["GradoUff"]
-//     );
-//   }
-
-//   factory Denuncia.fromMap(map) {
-//     return Denuncia(
-//         id: map["ID"],
-//         idUtente: map["IDUtente"],
-//         nomeDenunciante: map["NomeDenunciante"],
-//         cognomeDenunciante: map["CognomeDenunciante"],
-//         indirizzoDenunciante: map["IndirizzoDenunciante"],
-//         capDenunciante: map["CapDenunciante"],
-//         provinciaDenunciante: map["ProvinciaDenunciante"],
-//         cellulareDenunciante: map["CellulareDenunciante"],
-//         emailDenunciante: map["EmailDenunciante"],
-//         tipoDocDenunciante: map["TipoDocDenunciante"],
-//         numeroDocDenunciante: map["NumeroDocDenunciante"],
-//         scadenzaDocDenunciante: map["ScadenzaDocDenunciante"],
-//         dataDenuncia: map["DataDenuncia"],
-//         categoriaDenuncia: map["CategoriaDenuncia"],
-//         nomeVittima: map["NomeVittima"],
-//         denunciato: map["Denunciato"],
-//         alreadyFiled: map["AlreadyFiled"],
-//         consenso: map["Consenso"],
-//         descrizione: map["Descrizione"],
-//         statoDenuncia: map["Stato"],
-//         nomeCaserma: map["NomeCaserma"],
-//         coordCaserma: map["CoordCaserma"],
-//         nomeUff: map["NomeUff"],
-//         cognomeUff: map["CognomeUff"],
-//         cognomeVittima: map["CognomeVittima"],
-//         idUff: map["IDUff"],
-//         tipoUff: map["TipoUff"],
-//         gradoUff: map["GradoUff"]
-//     );
-//   }
-
-//   Map<String, dynamic> toMap() {
-//     return {
-//       "ID": id,
-//       "IDUtente": idUtente,
-//       "NomeDenunciante": nomeDenunciante,
-//       "CognomeDenunciante": cognomeDenunciante,
-//       "IndirizzoDenunciante": indirizzoDenunciante,
-//       "CapDenunciante": capDenunciante,
-//       "ProvinciaDenunciante": provinciaDenunciante,
-//       "CellulareDenunciante": cellulareDenunciante,
-//       "EmailDenunciante": emailDenunciante,
-//       "TipoDocDenunciante": tipoDocDenunciante,
-//       "NumeroDocDenunciante": numeroDocDenunciante,
-//       "ScadenzaDocDenunciante": scadenzaDocDenunciante,
-//       "DataDenuncia": dataDenuncia,
-//       "CategoriaDenuncia": categoriaDenuncia.name,
-//       "NomeVittima": nomeVittima,
-//       "Denunciato": denunciato,
-//       "AlreadyFiled": alreadyFiled,
-//       "Consenso": consenso,
-//       "Descrizione": descrizione,
-//       "Stato": statoDenuncia.name,
-//       "NomeCaserma": nomeCaserma,
-//       "CoordCaserma": coordCaserma,
-//       "NomeUff": nomeUff,
-//       "CognomeUff": cognomeUff,
-//       "CognomeVittima": cognomeVittima,
-//       "IDUff": idUff,
-//       "TipoUff": tipoUff,
-//       "GradoUff": gradoUff
-//     };
-//   }
 
   @override
   String toString() {

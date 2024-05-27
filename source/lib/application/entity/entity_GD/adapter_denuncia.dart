@@ -4,8 +4,6 @@ import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
 import 'package:report_it/application/entity/entity_GD/denuncia_entity.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 
-import 'dart:io';
-
 class AdapterDenuncia implements Adapter {
   @override
   fromJson(Map<String, dynamic> json) {

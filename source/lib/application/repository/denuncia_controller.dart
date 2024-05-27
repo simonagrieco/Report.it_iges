@@ -78,6 +78,7 @@ class DenunciaController {
     return null;
   }
 
+  //AGGIUNTO per img
   Future<String?> _uploadImage(File image) async {
     try {
       final storageRef = FirebaseStorage.instance.ref();

@@ -13,6 +13,7 @@ import '../../widget/styles.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 List<File> _selectedImages = [];
 final ImagePicker _picker = ImagePicker();
@@ -816,23 +817,27 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   }
 
   continued() {
-    if (_formKey.currentState!.validate()) {
-      if ((_currentStep == 1 && discriminazione == null) ||
-          (_currentStep == 2 && vittimaRadio == null) ||
-          (_currentStep == 5 && alreadyFiledRadio == null)) {
-        return null;
-      }
-
-      if (_currentStep == 3 && !_formKey3.currentState!.validate()) {
-        return null;
-      }
-
-      if (_currentStep == 4 && !_formKey4.currentState!.validate()) {
-        return null;
-      }
-      _currentStep <= 7 ? setState(() => _currentStep += 1) : null;
+    if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
+      return;
     }
+
+    if ((_currentStep == 1 && discriminazione == null) ||
+        (_currentStep == 2 && vittimaRadio == null) ||
+        (_currentStep == 5 && alreadyFiledRadio == null)) {
+      return;
+    }
+
+    if (_currentStep == 3 && (_formKey3.currentState == null || !_formKey3.currentState!.validate())) {
+      return;
+    }
+
+    if (_currentStep == 4 && (_formKey4.currentState == null || !_formKey4.currentState!.validate())) {
+      return;
+    }
+
+    _currentStep <= 7 ? setState(() => _currentStep += 1) : null;
   }
+
 
   cancel() {
     _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
@@ -873,20 +878,97 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
     print(await result);
   }
 
-  Future<void> _pickImages() async {
-    // Richiedi permessi
-    if (await Permission.photos.request().isGranted) {
-      // I permessi sono concessi
-      final List<XFile>? pickedFiles = await _picker.pickMultiImage();
-      if (pickedFiles != null && pickedFiles.isNotEmpty) {
-        setState(() {
-          _selectedImages = pickedFiles.map((file) => File(file.path)).toList();
-        });
+  //metodo per selezionare foto
+  /*Future<void> _pickImages() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final sdkInt = androidInfo.version.sdkInt ?? 0;
+      if (sdkInt <= 32) {
+        // Per Android versioni <= 32 (fino ad Android 12)
+        if (await Permission.storage.request().isGranted) {
+          // Permesso di accesso alla memoria esterna concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+          if (pickedFile != null) {
+            // Gestisci il file selezionato
+          }
+        } else {
+          print("Permessi di accesso alla memoria esterna negati");
+        }
+      } else {
+        // Per Android versioni >= 33 (Android 13 e successivi)
+        if (await Permission.photos.request().isGranted) {
+          // Permesso di accesso alle foto concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+          if (pickedFile != null) {
+            // Gestisci il file selezionato
+          }
+        } else {
+          print("Permessi di accesso alle foto negati");
+        }
       }
     } else {
-      // I permessi non sono concessi
-      print('Permesso per accedere alle foto negato');
+      // Gestione permessi per iOS o altre piattaforme
+      if (await Permission.photos.request().isGranted) {
+        // Permesso di accesso alle foto concesso
+        final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+        if (pickedFile != null) {
+          // Gestisci il file selezionato
+        }
+      } else {
+        print("Permessi di accesso alle foto negati");
+      }
+    }
+  } */
+  
+  Future<void> _pickImages() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final sdkInt = androidInfo.version.sdkInt ?? 0;
+      if (sdkInt <= 32) {
+        // Per Android versioni <= 32 (fino ad Android 12)
+        if (await Permission.storage.request().isGranted) {
+          // Permesso di accesso alla memoria esterna concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+          if (pickedFile != null) {
+            // Aggiungi il file selezionato alla lista _selectedImages
+            setState(() {
+              _selectedImages.add(File(pickedFile.path));
+            });
+          }
+        } else {
+          print("Permessi di accesso alla memoria esterna negati");
+        }
+      } else {
+        // Per Android versioni >= 33 (Android 13 e successivi)
+        if (await Permission.photos.request().isGranted) {
+          // Permesso di accesso alle foto concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+          if (pickedFile != null) {
+            // Aggiungi il file selezionato alla lista _selectedImages
+            setState(() {
+              _selectedImages.add(File(pickedFile.path));
+            });
+          }
+        } else {
+          print("Permessi di accesso alle foto negati");
+        }
+      }
+    } else {
+      // Gestione permessi per iOS o altre piattaforme
+      if (await Permission.photos.request().isGranted) {
+        // Permesso di accesso alle foto concesso
+        final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+        if (pickedFile != null) {
+          // Aggiungi il file selezionato alla lista _selectedImages
+          setState(() {
+            _selectedImages.add(File(pickedFile.path));
+          });
+        }
+      } else {
+        print("Permessi di accesso alle foto negati");
+      }
     }
   }
+
 
 }
