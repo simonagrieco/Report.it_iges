@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:report_it/presentation/pages/pages_GAM/pieChartPage.dart';
 
 class ItalyMap extends StatelessWidget {
   final List<LatLng> capitals = [
@@ -26,6 +27,13 @@ class ItalyMap extends StatelessWidget {
     LatLng(39.2238, 9.1217), // Cagliari
   ];
 
+  final List<String> regionNames = [
+    'Piemonte', 'Valle d\'Aosta', 'Lombardia', 'Trentino-Alto Adige', 'Veneto',
+    'Friuli-Venezia Giulia', 'Liguria', 'Emilia-Romagna', 'Toscana', 'Umbria',
+    'Marche', 'Lazio', 'Abruzzo', 'Molise', 'Campania', 'Basilicata', 'Puglia',
+    'Calabria', 'Sicilia', 'Sardegna'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,12 +49,22 @@ class ItalyMap extends StatelessWidget {
             subdomains: ['a', 'b', 'c'],
           ),
           MarkerLayer(
-            markers: capitals.map((latLng) {
+            markers: capitals.asMap().entries.map((entry) {
+              int index = entry.key;
+              LatLng latLng = entry.value;
               return Marker(
                 width: 80.0,
                 height: 80.0,
                 point: latLng,
-                builder: (ctx) => Container(
+                builder: (ctx) => GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PieChartPage(regionName: regionNames[index]),
+                      ),
+                    );
+                  },
                   child: Icon(
                     Icons.location_on,
                     color: Colors.blue,

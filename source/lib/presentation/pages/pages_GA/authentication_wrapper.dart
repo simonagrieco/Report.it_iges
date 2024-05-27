@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:report_it/data/models/AutenticazioneDAO.dart';
-import '../../../application/entity/entity_GA/amministratore_entity.dart';
 import '../home_page.dart';
 import '../pages_GAM/dashboard.dart';
 import 'login_home_page.dart';
@@ -26,21 +23,23 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   Future<void> _checkIfAdmin() async {
     final currentUser = FirebaseAuth.instance.currentUser;
 
-    if (currentUser != null) {
+    if (currentUser != null && currentUser.email != null) {
       final email = currentUser.email;
-      if (email != null) {
-        final firestore = FirebaseFirestore.instance;
+      final firestore = FirebaseFirestore.instance;
+      final querySnapshot = await firestore
+          .collection("Amministratore")
+          .where('Email', isEqualTo: email)
+          .get();
 
-        final querySnapshot = await firestore
-            .collection("Amministratore")
-            .where('Email', isEqualTo: email)
-            .get();
-
-        if (querySnapshot.docs.isNotEmpty) {
+      if (querySnapshot.docs.isNotEmpty) {
+        print("User is Admin");
+        if (mounted) {
           setState(() {
             _isAdmin = true;
           });
         }
+      } else {
+        print("User is not Admin");
       }
     }
   }
@@ -48,13 +47,17 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-    _checkIfAdmin();
 
     if (firebaseUser != null) {
       // Controlliamo se l'email dell'utente corrente è nella lista degli amministratori
       if (_isAdmin) {
+        print("Sei un ADMIN");
+        setState(() {
+          _isAdmin = true;
+        });
         return Dashboard();
       } else {
+        print("Non sei un ADMIN");
         setState(() {
           _isAdmin = false;
         });
