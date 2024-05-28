@@ -221,4 +221,52 @@ class ForumDao {
 
     return path;
   }
+
+  //Aggiunto per tendenze
+  static Future<List<Discussione?>> RetrieveTopRatedForum() async {
+    var ref = database.collection("Discussione").orderBy("Punteggio", descending: true);
+
+    List<Discussione> lista = List.empty(growable: true);
+
+    var u = await ref.get().then((value) async {
+      for (var c in value.docs) {
+        Discussione ut = AdapterDiscussione().fromJson(c.data());
+        ut.setID(c.id);
+
+        if (ut.pathImmagine != null &&
+            (ut.pathImmagine!.startsWith("http") ||
+                ut.pathImmagine!.startsWith("gs://"))) {
+          final gsReference =
+          FirebaseStorage.instance.refFromURL(ut.pathImmagine!);
+          await gsReference
+              .getDownloadURL()
+              .then((value) => ut.setpathImmagine(value));
+        }
+
+        if (ut.tipoUtente == "Utente") {
+          Utente? utw =
+          await AutenticazioneDAO().RetrieveUtenteByID(ut.idCreatore);
+          ut.nome = utw!.spid!.nome;
+          ut.cognome = utw.spid!.cognome;
+        } else if (ut.tipoUtente == "CUP") {
+          OperatoreCUP? opCUP =
+          await AutenticazioneDAO().RetrieveCUPByID(ut.idCreatore);
+          ut.nome = opCUP!.nome;
+          ut.cognome = opCUP.cognome;
+        } else {
+          UffPolGiud? uff =
+          await AutenticazioneDAO().RetrieveUffPolGiudByID(ut.idCreatore);
+          ut.nome = uff!.nome;
+          ut.cognome = uff.cognome;
+        }
+        lista.add(ut);
+      }
+
+      return lista;
+    });
+
+    return u;
+  }
+
 }
+

@@ -242,4 +242,10 @@ class ForumService {
       return "tutto ok";
     }
   }
+
+  //Aggiunto per tendenza
+  static Future<List<Discussione?>> PrendiTendenze() async {
+    return ForumDao.RetrieveTopRatedForum();
+  }
+
 }
