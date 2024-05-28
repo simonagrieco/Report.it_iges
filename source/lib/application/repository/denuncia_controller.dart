@@ -16,6 +16,7 @@ import "../../data/models/denuncia_dao.dart";
 import '../entity/entity_GD/denuncia_entity.dart';
 import '../entity/entity_GA/super_utente.dart';
 
+
 class DenunciaController {
   DenunciaDao denunciaDao = DenunciaDao();
 

@@ -6,6 +6,8 @@ import 'package:report_it/application/entity/entity_GA/super_utente.dart';
 import 'package:report_it/application/entity/entity_GA/tipo_utente.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 import 'package:report_it/presentation/widget/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 import '../../../application/entity/entity_GD/denuncia_entity.dart';
 import '../../../../application/repository/denuncia_controller.dart';
 import '../../widget/tasto_cambia_stato_denuncia_widget.dart';
@@ -436,11 +438,11 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
                                 overflow: TextOverflow.fade),
                           ),
                         ),
-                        //Aggiunto per img
-                        Container(
+
+                        /*Container(
                           decoration: ThemeText.boxDettaglio,
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                          margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                           child: InputDecorator(
                             decoration: const InputDecoration(
                               labelText: 'Contenuti multimediali caricati ',
@@ -452,6 +454,61 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
                               children: d.mediaUrls.map((url) => Image.network(url)).toList(), // Mostra ogni immagine
                                 ) // Se sì, mostra l'immagine
                                 : const Text('Nessun contenuto multimediale condiviso'), // Altrimenti mostra il testo
+                          ),
+                        ), */
+
+                        //Aggiunto per img, video e doc
+                        Container(
+                          decoration: ThemeText.boxDettaglio,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
+                          child: InputDecorator(
+                            decoration: const InputDecoration(
+                              labelText: 'Contenuti multimediali caricati ',
+                              labelStyle: ThemeText.titoloDettaglio,
+                              border: InputBorder.none,
+                            ),
+                            child: d.mediaUrls
+                                    .isNotEmpty // Controlla se ci sono URL multimediali
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    // Centra la Row
+                                    children: List.generate(d.mediaUrls.length,
+                                        (index) {
+                                      String url = d.mediaUrls[index];
+                                      return SizedBox(
+                                        width: 60,
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            Uri uri = Uri.parse(url);
+                                            if (await canLaunchUrl(uri)) {
+                                              await launchUrl(uri);
+                                            } else {
+                                              throw 'Impossibile aprire l\'URL: $url';
+                                            }
+                                          },
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: 20),
+                                              Icon(
+                                                Icons.file_present_rounded,
+                                                // Icona per rappresentare l'URL
+                                                color: Colors.blue,
+                                                // Colore dell'icona
+                                                size:
+                                                    40.0, // Dimensione dell'icona
+                                              ),
+                                              Text("File ${index + 1}"),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  )
+                                : const Text(
+                                    'Nessun contenuto multimediale condiviso'), // Altrimenti mostra il testo
                           ),
                         ),
 
@@ -620,6 +677,23 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
         ),
       ),
     );
+  }
+
+  //Aggiunto per img, video e doc
+  late VideoPlayerController _controller;
+
+  Future<void> _initializeVideoPlayerFuture(String url) async {
+    _controller = VideoPlayerController.networkUrl(url as Uri);
+    await _controller.initialize();
+    _controller.setLooping(true);
+  }
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunchUrl(url as Uri)) {
+      await launchUrl(url as Uri);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
 
