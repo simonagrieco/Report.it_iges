@@ -7,7 +7,6 @@ import 'package:report_it/application/entity/entity_GA/tipo_utente.dart';
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart';
 import 'package:report_it/presentation/widget/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:video_player/video_player.dart';
 import '../../../application/entity/entity_GD/denuncia_entity.dart';
 import '../../../../application/repository/denuncia_controller.dart';
 import '../../widget/tasto_cambia_stato_denuncia_widget.dart';
@@ -677,23 +676,6 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
         ),
       ),
     );
-  }
-
-  //Aggiunto per img, video e doc
-  late VideoPlayerController _controller;
-
-  Future<void> _initializeVideoPlayerFuture(String url) async {
-    _controller = VideoPlayerController.networkUrl(url as Uri);
-    await _controller.initialize();
-    _controller.setLooping(true);
-  }
-
-  Future<void> _launchURL(String url) async {
-    if (await canLaunchUrl(url as Uri)) {
-      await launchUrl(url as Uri);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
 
