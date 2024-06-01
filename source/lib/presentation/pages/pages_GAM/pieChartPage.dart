@@ -28,15 +28,31 @@ class PieChart2State extends State<PieChartPage> {
           .where('RegioneDenunciante', isEqualTo: widget.regionName)
           .get();
 
+      Map<String, String> categoryConversion = {
+        'Disabilita': 'Disabilità',
+        'Eta': 'Età',
+        'OrientamentoSessuale': 'Orientamento\nsessuale',
+        'EspressioneDiGenere' : 'Espressione\ndi Genere',
+        'IdentitaDiGenere' : 'Identità\ndi Genere',
+        'StoriaPersonale': 'Storia\nPersonale',
+      };
+
       Map<String, int> categoryCount = {};
       for (var doc in querySnapshot.docs) {
         String category = doc['CategoriaDenuncia'];
+
+        // Convert the category if it exists in the conversion map
+        if (categoryConversion.containsKey(category)) {
+          category = categoryConversion[category]!;
+        }
+
         if (categoryCount.containsKey(category)) {
           categoryCount[category] = categoryCount[category]! + 1;
         } else {
           categoryCount[category] = 1;
         }
       }
+
       setState(() {
         categoryData = categoryCount;
       });
@@ -45,83 +61,103 @@ class PieChart2State extends State<PieChartPage> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: AspectRatio(
-        aspectRatio: 0.9,
-        child: Container(
-          color: Colors.white60,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 15),
-              Text('Categorie Denunce in ${widget.regionName}',
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold)),
-              SizedBox(height: 30),
-              Expanded(
-                child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 0.9,
-                      child: PieChart(
-                        PieChartData(
-                          pieTouchData: PieTouchData(
-                            touchCallback:
-                                (FlTouchEvent event, pieTouchResponse) {
-                              setState(() {
-                                if (!event.isInterestedForInteractions ||
-                                    pieTouchResponse == null ||
-                                    pieTouchResponse.touchedSection == null) {
-                                  touchedIndex = -1;
-                                  return;
-                                }
-                                touchedIndex = pieTouchResponse
-                                    .touchedSection!.touchedSectionIndex;
-                              });
-                            },
+      body: Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height,
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9, // Larghezza adattabile al contenuto
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min, // Si adatta all'altezza del contenuto
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min, // Si adatta all'altezza del contenuto
+                  children: [
+                    Text(
+                      'Categorie Denunce in',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      '${widget.regionName}',
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 0.9,
+                          child: PieChart(
+                            PieChartData(
+                              pieTouchData: PieTouchData(
+                                touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                                  setState(() {
+                                    if (!event.isInterestedForInteractions ||
+                                        pieTouchResponse == null ||
+                                        pieTouchResponse.touchedSection == null) {
+                                      touchedIndex = -1;
+                                      return;
+                                    }
+                                    touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                                  });
+                                },
+                              ),
+                              borderData: FlBorderData(
+                                show: false,
+                              ),
+                              sectionsSpace: 0,
+                              centerSpaceRadius: 40,
+                              sections: _buildPieChartSections(),
+                            ),
                           ),
-                          borderData: FlBorderData(
-                            show: false,
-                          ),
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 40,
-                          sections: _buildPieChartSections(),
                         ),
                       ),
-                    ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: categoryData.keys.map((category) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: Indicator(
+                              color: _getColorForCategory(category),
+                              text: category,
+                              isSquare: true,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: categoryData.keys.map((category) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
-                        child: Indicator(
-                          color: _getColorForCategory(category),
-                          text: category,
-                          isSquare: true,
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  const SizedBox(
-                    width: 28,
-                  ),
-                ],
-              ),
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
 
   List<PieChartSectionData> _buildPieChartSections() {
     List<PieChartSectionData> sections = [];
@@ -196,7 +232,7 @@ class Indicator extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          width: 4,
+          width: 10,
         ),
         Text(
           text,

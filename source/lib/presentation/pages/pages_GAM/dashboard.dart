@@ -26,14 +26,20 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<void> _calculateTotalDenunces() async {
+    final Set<String> italianRegions = {
+      'Abruzzo', 'Basilicata', 'Calabria', 'Campania', 'Emilia-Romagna',
+      'Friuli-Venezia Giulia', 'Lazio', 'Liguria', 'Lombardia', 'Marche',
+      'Molise', 'Piemonte', 'Puglia', 'Sardegna', 'Sicilia', 'Toscana',
+      'Trentino-Alto Adige', 'Umbria', "Valle d'Aosta", 'Veneto'
+    };
+
     try {
-      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('Denuncia')
-          .get();
+      final QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('Denuncia').get();
 
       int total = 0;
       for (var doc in querySnapshot.docs) {
-        if (doc['RegioneDenunciante'] != 'null') {
+        if (doc['RegioneDenunciante'] != null && italianRegions.contains(doc['RegioneDenunciante'])) {
           total += 1;
         }
       }
@@ -50,7 +56,6 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +63,8 @@ class _DashboardState extends State<Dashboard> {
         centerTitle: true,
         leading: Image.asset('assets/images/C11_Logo-noscritta.png',
             fit: BoxFit.cover),
-        title: Text('Dashboard', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        title: Text('Dashboard',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         elevation: 1,
         backgroundColor: Color.fromRGBO(255, 254, 248, 1),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -76,38 +82,65 @@ class _DashboardState extends State<Dashboard> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildStatContainer("Denunce totali", totalDenunces),
                     SizedBox(width: 20),
-                    _buildStatContainer("Media mensile", monthlyAverageDenunces.toInt()), // Visualizza la media mensile come intero
-                  ],
-                ),
-                SizedBox(height: 20,),
-                Text("Mappa d'Italia", style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10,),
-                ItalyMap(),
-                SizedBox(height: 10,),
-                Row(
-                  children: [
-                    Text("Bar Chart  ", style: TextStyle(color: Colors.blue, fontSize: 18, fontWeight: FontWeight.bold)),
-                    Icon(Iconsax.information5, color: Colors.blueAccent,),
+                    _buildStatContainer(
+                        "Media mensile", monthlyAverageDenunces.toInt()),
+                    // Visualizza la media mensile come intero
                   ],
                 ),
                 SizedBox(
-                  height: 350,
+                  height: 20,
+                ),
+                Text("Mappa d'Italia",
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10,
+                ),
+                ItalyMap(),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text("Bar Chart  ",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Text("Numero di denunce effettuate per ogni regione d'Italia."),
+                            );
+                          },
+                        );
+                      },
+                      child: Icon(
+                        Iconsax.information5,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 400,
                   child: BarChartPage(),
                 ),
-                /*SizedBox(
-                  height: 400,
-                  child: PieChartPage(),
-                ),*/
               ],
-            )
-
-        ),
+            )),
       ),
     );
   }
@@ -118,10 +151,21 @@ class _DashboardState extends State<Dashboard> {
       height: MediaQuery.of(context).size.height * 0.2,
       child: Column(
         children: [
-          SizedBox(height: 30,),
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
-          SizedBox(height: 35,),
-          Text(value.toString(), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.blue),),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            height: 35,
+          ),
+          Text(
+            value.toString(),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 25, color: Colors.blue),
+          ),
         ],
       ),
       decoration: BoxDecoration(
@@ -139,4 +183,3 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 }
-
