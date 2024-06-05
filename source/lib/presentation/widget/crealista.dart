@@ -198,7 +198,7 @@ class _CreaDiscussioneState extends State<CreaDiscussione> {
                         ),
                         child: Row(
                           children: [
-                            like(
+                            Like(
                               discussione: widget.snapshot.data![widget.index]!,
                               callback: widget.callback2,
                             ),
