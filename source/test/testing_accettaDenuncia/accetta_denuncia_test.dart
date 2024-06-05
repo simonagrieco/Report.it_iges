@@ -118,6 +118,7 @@ void main() {
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
         regioneDenunciante: 'regioneDenunciate', //AGGIUNTO
+        mediaUrls: [], //AGGIUNTO
       );
       SuperUtente utente =
           SuperUtente("MjQfAm3PDdOS3BUFJWkrrGBdHyR2", TipoUtente.Utente);
@@ -158,6 +159,7 @@ void main() {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
+        mediaUrls: [], //Aggiunto per img
       );
       SuperUtente utente = SuperUtente("123", TipoUtente.UffPolGiud);
 
@@ -195,7 +197,8 @@ void main() {
         statoDenuncia: StatoDenuncia.NonInCarico,
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
-        regioneDenunciante: 'regioneDenunciante' //AGGIUNTO
+        regioneDenunciante: 'regioneDenunciante',
+        mediaUrls: [] //AGGIUNTO
       );
       SuperUtente utente =
           SuperUtente("1PZNxmcGrWVN2ezktgyKFVRWdBS2", TipoUtente.UffPolGiud);
@@ -237,6 +240,7 @@ void main() {
         tipoDocDenunciante: 'tipoDocDenunciante',
         tipoUff: null,
         regioneDenunciante: 'regioneDenunciante', //AGGIUNTO
+        mediaUrls: [], //Aggiunto per img
       );
       SuperUtente utente =
           SuperUtente("1PZNxmcGrWVN2ezktgyKFVRWdBS2", TipoUtente.UffPolGiud);

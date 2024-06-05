@@ -50,7 +50,9 @@ void main() {
       required String descrizione,
       required String cognomeVittima,
       required bool consenso,
-      required bool? alreadyFiled}) {
+      required bool? alreadyFiled,
+      required List<String> mediaUrls,
+      }) {
     Timestamp today = Timestamp.now();
     final regexEmail = RegExp(r"^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$");
     //   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -160,6 +162,7 @@ void main() {
         indirizzoCaserma: null,
         gradoUff: null,
         regioneDenunciante: regioneDenunciante, //AGGIUNTO
+        mediaUrls: mediaUrls, //Aggiunto per img
     );
 
     when(dao.addDenuncia(denuncia)).thenAnswer((realInvocation) => Future((() {
@@ -196,6 +199,7 @@ void main() {
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
+      List<String> mediaUrls;
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -215,7 +219,8 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante,
+              mediaUrls: [],) ==
           "Il formato dell’indirizzo non è valido");
     }));
 
@@ -259,7 +264,7 @@ void main() {
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
               capDenunciante: capDenunciante,
-              regioneDenunciante: regioneDenunciante, //AGGIUNTO
+              regioneDenunciante: regioneDenunciante, mediaUrls: [], //AGGIUNTO
       ) ==
           "La lunghezza dell’indirizzo non è valida");
     }));
@@ -303,7 +308,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Il formato del CAP non è rispettato");
     }));
     test("TC_GD.1.1_4", (() async {
@@ -346,7 +351,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Il formato del numero di cellulare non è rispettato");
     }));
 
@@ -390,7 +395,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Il formato della provincia non è rispettato");
     }));
 
@@ -434,7 +439,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Il formato della e-mail non è rispettato");
     }));
 
@@ -478,7 +483,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "La lunghezza del nome della vittima non è valida");
     }));
 
@@ -522,7 +527,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "La lunghezza del cognome della vittima non è valida");
     }));
 
@@ -567,7 +572,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "La lunghezza del campo denunciato non è valida");
     }));
 
@@ -613,7 +618,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "La lunghezza della descrizione non è valida");
     }));
 
@@ -657,7 +662,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Il campo del consenso non è valido");
     }));
 
@@ -701,7 +706,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Il campo che indica se la pratica è stata già precedentemente archiviata non è valido");
     }));
 
@@ -746,7 +751,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Lunghezza nome denunciante non è valida");
     }));
 
@@ -791,7 +796,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Lunghezza cognome denunciante non è valida");
     }));
 
@@ -835,7 +840,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Tipo documento non rispettato");
     }));
 
@@ -879,7 +884,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "La lunghezza del nunero del documento è errata");
     }));
 
@@ -923,7 +928,7 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante, mediaUrls: []) ==
           "Errore il documento già è scaduto");
     }));
 
@@ -967,10 +972,11 @@ void main() {
               consenso: consenso,
               alreadyFiled: alreadyFiled,
               nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante) ==
+              capDenunciante: capDenunciante,
+          mediaUrls: []) ==
           "OK");
     }));
   });
 }
 
-//AGGIUNGERE CASO TEST "REGIONE" ???
+//AGGIUNGERE CASO TEST "REGIONE" e "MEDIA" ???

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,11 @@ import 'package:report_it/application/repository/denuncia_controller.dart';
 
 import '../../../application/entity/entity_GA/super_utente.dart';
 import '../../widget/styles.dart';
+
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class InoltroDenuncia extends StatefulWidget {
   final SuperUtente utente;
@@ -40,6 +46,10 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   late TextEditingController cognomeVittimaController;
   late TextEditingController descrizioneController;
 
+  //Aggiunto per img, video e doc
+  List<File> _selectedFiles = [];
+  final ImagePicker _picker = ImagePicker();
+
   final regexEmail = RegExp(r"^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$");
   //   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final regexIndirizzo = RegExp(r"^[a-zA-Z+\s]+[,]?\s?[0-9]+$");
@@ -57,6 +67,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   String? alreadyFiledRadio;
   bool consensoController = false;
   late bool alreadyFiledController;
+
+
 
   @override
   void initState() {
@@ -77,6 +89,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
 
   @override
   Widget build(BuildContext context) {
+
     final consensoWidget = Wrap(
       children: [
         Column(
@@ -238,6 +251,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                         return null;
                       },
                     ),
+                    SizedBox(height: 20,),
                   ],
                 ),
               )
@@ -280,18 +294,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
       ],
     );
 
-    // Checkbox(
-    //   checkColor: Colors.white,
-    //   fillColor: MaterialStateProperty.resolveWith(getColor),
-    //   value: isChecked,
-    //   onChanged: (bool? value) {
-    //     setState(() {
-    //       isChecked = value!;
-    //     });
-    //   },
-    // )
-
     return Consumer<SuperUtente?>(
+
       builder: (context, utente, _) {
         if (utente == null) {
           return const Text("Non sei loggato");
@@ -431,7 +435,6 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                               } else if (!regexCap.hasMatch(value)) {
                                 return 'Per favore, inserisci un CAP valido.';
                               }
-
                               return null;
                             },
                           ),
@@ -722,6 +725,39 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                               return null;
                             },
                           ),
+                          SizedBox(height: 40,),
+                          //Aggiunto per img
+                          Text(
+                            "Se in possesso, carica contenuti multimediali relativi alla vicenda (foto, video e/o documenti)",
+                            style: ThemeText.corpoInoltro,
+                          ),
+                          SizedBox(height: 10,),
+                          ElevatedButton(
+                            onPressed: _pickFiles, //richiama metodo
+                            child: const Text("Seleziona file"),
+                          ),
+                          const SizedBox(height: 10),
+                          _selectedFiles.isNotEmpty
+                              ? Wrap(
+                            children: _selectedFiles.map((file) {
+                              final fileName = file.path.split('/').last;
+                              return Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8.0),
+                                  color: Colors.grey[200],
+                                  child: Text(
+                                    fileName,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          )
+                              : const Text("Nessuna file selezionato."),
+                          SizedBox(height: 20,)
                         ],
                       ),
                     ),
@@ -773,23 +809,27 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   }
 
   continued() {
-    if (_formKey.currentState!.validate()) {
-      if ((_currentStep == 1 && discriminazione == null) ||
-          (_currentStep == 2 && vittimaRadio == null) ||
-          (_currentStep == 5 && alreadyFiledRadio == null)) {
-        return null;
-      }
-
-      if (_currentStep == 3 && !_formKey3.currentState!.validate()) {
-        return null;
-      }
-
-      if (_currentStep == 4 && !_formKey4.currentState!.validate()) {
-        return null;
-      }
-      _currentStep <= 7 ? setState(() => _currentStep += 1) : null;
+    if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
+      return;
     }
+
+    if ((_currentStep == 1 && discriminazione == null) ||
+        (_currentStep == 2 && vittimaRadio == null) ||
+        (_currentStep == 5 && alreadyFiledRadio == null)) {
+      return;
+    }
+
+    if (_currentStep == 3 && (_formKey3.currentState == null || !_formKey3.currentState!.validate())) {
+      return;
+    }
+
+    if (_currentStep == 4 && (_formKey4.currentState == null || !_formKey4.currentState!.validate())) {
+      return;
+    }
+
+    _currentStep <= 7 ? setState(() => _currentStep += 1) : null;
   }
+
 
   cancel() {
     _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
@@ -824,8 +864,160 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
         cognomeVittima: cognomeVittimaController.text,
         consenso: consensoController,
         alreadyFiled: alreadyFiledController,
+        imageFiles: _selectedFiles, //aggiunto per img
     );
 
     print(await result);
   }
+
+  //metodo per selezionare foto
+  /*Future<void> _pickImages() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final sdkInt = androidInfo.version.sdkInt ?? 0;
+      if (sdkInt <= 32) {
+        // Per Android versioni <= 32 (fino ad Android 12)
+        if (await Permission.storage.request().isGranted) {
+          // Permesso di accesso alla memoria esterna concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+          if (pickedFile != null) {
+            // Gestisci il file selezionato
+          }
+        } else {
+          print("Permessi di accesso alla memoria esterna negati");
+        }
+      } else {
+        // Per Android versioni >= 33 (Android 13 e successivi)
+        if (await Permission.photos.request().isGranted) {
+          // Permesso di accesso alle foto concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+          if (pickedFile != null) {
+            // Gestisci il file selezionato
+          }
+        } else {
+          print("Permessi di accesso alle foto negati");
+        }
+      }
+    } else {
+      // Gestione permessi per iOS o altre piattaforme
+      if (await Permission.photos.request().isGranted) {
+        // Permesso di accesso alle foto concesso
+        final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+        if (pickedFile != null) {
+          // Gestisci il file selezionato
+        }
+      } else {
+        print("Permessi di accesso alle foto negati");
+      }
+    }
+  }
+
+  Future<void> _pickImages() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final sdkInt = androidInfo.version.sdkInt ?? 0;
+      if (sdkInt <= 32) {
+        // Per Android versioni <= 32 (fino ad Android 12)
+        if (await Permission.storage.request().isGranted) {
+          // Permesso di accesso alla memoria esterna concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+          if (pickedFile != null) {
+            // Aggiungi il file selezionato alla lista _selectedImages
+            setState(() {
+              _selectedImages.add(File(pickedFile.path));
+            });
+          }
+        } else {
+          print("Permessi di accesso alla memoria esterna negati");
+        }
+      } else {
+        // Per Android versioni >= 33 (Android 13 e successivi)
+        if (await Permission.photos.request().isGranted) {
+          // Permesso di accesso alle foto concesso
+          final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+          if (pickedFile != null) {
+            // Aggiungi il file selezionato alla lista _selectedImages
+            setState(() {
+              _selectedImages.add(File(pickedFile.path));
+            });
+          }
+        } else {
+          print("Permessi di accesso alle foto negati");
+        }
+      }
+    } else {
+      // Gestione permessi per iOS o altre piattaforme
+      if (await Permission.photos.request().isGranted) {
+        // Permesso di accesso alle foto concesso
+        final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+        if (pickedFile != null) {
+          // Aggiungi il file selezionato alla lista _selectedImages
+          setState(() {
+            _selectedImages.add(File(pickedFile.path));
+          });
+        }
+      } else {
+        print("Permessi di accesso alle foto negati");
+      }
+    }
+  } */
+  Future<void> _pickFiles() async {
+    if (Platform.isAndroid) {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      final sdkInt = androidInfo.version.sdkInt ?? 0;
+      if (sdkInt <= 32) {
+        // Per Android versioni <= 32 (fino ad Android 12)
+        if (await Permission.storage.request().isGranted) {
+          // Permesso di accesso alla memoria esterna concesso
+          final result = await FilePicker.platform.pickFiles(
+            allowMultiple: true,
+            type: FileType.custom,
+            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'doc', 'docx','webp'],
+          );
+          if (result != null) {
+            setState(() {
+              _selectedFiles.addAll(result.paths.map((path) => File(path!)).toList());
+            });
+          }
+        } else {
+          print("Permessi di accesso alla memoria esterna negati");
+        }
+      } else {
+        // Per Android versioni >= 33 (Android 13 e successivi)
+        if (await Permission.photos.request().isGranted) {
+          // Permesso di accesso alle foto concesso
+          final result = await FilePicker.platform.pickFiles(
+            allowMultiple: true,
+            type: FileType.custom,
+            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'doc', 'docx'],
+          );
+          if (result != null) {
+            setState(() {
+              _selectedFiles.addAll(result.paths.map((path) => File(path!)).toList());
+            });
+          }
+        } else {
+          print("Permessi di accesso alle foto negati");
+        }
+      }
+    } else {
+      // Gestione permessi per iOS o altre piattaforme
+      if (await Permission.photos.request().isGranted) {
+        // Permesso di accesso alle foto concesso
+        final result = await FilePicker.platform.pickFiles(
+          allowMultiple: true,
+          type: FileType.custom,
+          allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'doc', 'docx'],
+        );
+        if (result != null) {
+          setState(() {
+            _selectedFiles.addAll(result.paths.map((path) => File(path!)).toList());
+          });
+        }
+      } else {
+        print("Permessi di accesso alle foto negati");
+      }
+    }
+  }
+
 }
