@@ -6,6 +6,8 @@ import 'package:report_it/presentation/pages/pages_GF/form_crea_discussione.dart
 import 'package:report_it/presentation/widget/crealista.dart';
 import 'package:report_it/presentation/widget/styles.dart';
 
+import 'forum_tendenze.dart';
+
 class ForumHome extends StatefulWidget {
   const ForumHome({super.key});
 
@@ -14,6 +16,7 @@ class ForumHome extends StatefulWidget {
 }
 
 class _ForumHomeState extends State<ForumHome> {
+
   void callback() {
     setState(() {});
   }
@@ -23,7 +26,39 @@ class _ForumHomeState extends State<ForumHome> {
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Forum', style: ThemeText.titoloSezione),
+        title: Row(
+          children: [
+            Text('Forum', style: ThemeText.titoloSezione),
+            Spacer(),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ForumTendenze()),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'Tendenze',
+                      style: TextStyle(
+                          color: Colors.white),
+                    ),
+                    Icon(
+                      Icons.trending_up_outlined, color: Colors.white
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.background,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
