@@ -21,6 +21,48 @@ class DatabaseService {
     }
   }
 
+  // Metodo per l'aggiunta del campo 'mediaUrls' alla denuncia
+  Future<void> addMediaUrlsFieldToAllDocuments() async {
+    try {
+      // Ottieni tutti i documenti della raccolta
+      QuerySnapshot querySnapshot = await collectionRef.get();
+
+      // Itera attraverso tutti i documenti
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        // Ottieni i dati del documento
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+        // Controlla se il campo 'mediaUrls' esiste già e se è vuoto
+        if (data == null || !data.containsKey('mediaUrls') || (data['mediaUrls'] as List).isEmpty) {
+          // Aggiungi il nuovo campo a ciascun documento con l'array contenente la stringa "null"
+          await doc.reference.update({'mediaUrls': ['null']});
+          print('Campo mediaUrls aggiunto a documento con ID: ${doc.id}');
+        } else {
+          print('Il campo mediaUrls esiste già o non è vuoto per il documento con ID: ${doc.id}');
+        }
+      }
+    } catch (e) {
+      print('Errore durante l\'aggiunta del campo mediaUrls: $e');
+    }
+  }
+
+  //Metodo per l'aggiunta del campo ID alla denuncia
+  Future<void> addIDFieldToAllDocuments() async {
+    try {
+      // Ottieni tutti i documenti della raccolta
+      QuerySnapshot querySnapshot = await collectionRef.get();
+
+      // Itera attraverso tutti i documenti
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        // Aggiungi il campo ID uguale all'ID del documento
+        await doc.reference.update({'ID': doc.id});
+        print('Campo ID aggiunto a documento con ID: ${doc.id}');
+      }
+    } catch (e) {
+      print('Errore durante l\'aggiunta del campo ID: $e');
+    }
+  }
+
   // Metodo per l'aggiunta di nuovi ufficiali
   Future<void> addOfficer() async {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;

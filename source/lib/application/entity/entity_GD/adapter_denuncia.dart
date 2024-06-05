@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:report_it/application/entity/adapter.dart';
 import 'package:report_it/application/entity/entity_GA/tipo_ufficiale.dart';
 import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
@@ -9,38 +10,38 @@ class AdapterDenuncia implements Adapter {
   fromJson(Map<String, dynamic> json) {
     return Denuncia(
         id: json["ID"],
-        idUtente: json["IDUtente"],
-        nomeDenunciante: json["NomeDenunciante"],
-        cognomeDenunciante: json["CognomeDenunciante"],
-        regioneDenunciante: json["RegioneDenunciante"], //AGGIUNTO
-        indirizzoDenunciante: json["IndirizzoDenunciante"],
-        capDenunciante: json["CapDenunciante"],
-        provinciaDenunciante: json["ProvinciaDenunciante"],
-        cellulareDenunciante: json["CellulareDenunciante"],
-        emailDenunciante: json["EmailDenunciante"],
-        tipoDocDenunciante: json["TipoDocDenunciante"],
-        numeroDocDenunciante: json["NumeroDocDenunciante"],
-        scadenzaDocDenunciante: json["ScadenzaDocDenunciante"],
-        dataDenuncia: json["DataDenuncia"],
+        idUtente: json["IDUtente"] ?? "",
+        nomeDenunciante: json["NomeDenunciante"] ?? "",
+        cognomeDenunciante: json["CognomeDenunciante"] ?? "",
+        regioneDenunciante: json["RegioneDenunciante"] ?? "", //AGGIUNTO
+        indirizzoDenunciante: json["IndirizzoDenunciante"] ?? "",
+        capDenunciante: json["CapDenunciante"] ?? "",
+        provinciaDenunciante: json["ProvinciaDenunciante"] ?? "",
+        cellulareDenunciante: json["CellulareDenunciante"] ?? "",
+        emailDenunciante: json["EmailDenunciante"] ?? "",
+        tipoDocDenunciante: json["TipoDocDenunciante"] ?? "",
+        numeroDocDenunciante: json["NumeroDocDenunciante"] ?? "",
+        scadenzaDocDenunciante: json["ScadenzaDocDenunciante"] ?? new Timestamp(0, 0),
+        dataDenuncia: json["DataDenuncia"] ?? new Timestamp(0, 0),
         categoriaDenuncia:
             CategoriaDenuncia.values.byName(json["CategoriaDenuncia"]),
-        nomeVittima: json["NomeVittima"],
-        denunciato: json["Denunciato"],
-        alreadyFiled: json["AlreadyFiled"],
-        consenso: json["Consenso"],
-        descrizione: json["Descrizione"],
+        nomeVittima: json["NomeVittima"] ?? "",
+        denunciato: json["Denunciato"] ?? "",
+        alreadyFiled: json["AlreadyFiled"] ?? false,
+        consenso: json["Consenso"] ?? false,
+        descrizione: json["Descrizione"] ?? "",
         statoDenuncia: StatoDenuncia.values.byName(json["Stato"]),
-        nomeCaserma: json["NomeCaserma"],
+        nomeCaserma: json["NomeCaserma"] ?? "",
         coordCaserma: json["CoordCaserma"],
-        nomeUff: json["NomeUff"],
-        cognomeUff: json["CognomeUff"],
-        cognomeVittima: json["CognomeVittima"],
-        idUff: json["IDUff"],
+        nomeUff: json["NomeUff"] ?? "",
+        cognomeUff: json["CognomeUff"] ?? "",
+        cognomeVittima: json["CognomeVittima"] ?? "",
+        idUff: json["IDUff"] ?? "",
         tipoUff: json["TipoUff"] == null
             ? null
             : TipoUfficiale.values.byName(json["TipoUff"]),
-        indirizzoCaserma: json["IndirizzoCaserma"],
-        gradoUff: json["GradoUff"],
+        indirizzoCaserma: json["IndirizzoCaserma"] ?? "",
+        gradoUff: json["GradoUff"] ?? "",
         mediaUrls: List<String>.from(json["MediaUrls"] ?? []), //Aggiunto per immagini
     );
   }
