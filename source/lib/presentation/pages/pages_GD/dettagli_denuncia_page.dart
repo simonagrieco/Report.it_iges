@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:report_it/application/entity/entity_GA/super_utente.dart';
@@ -485,7 +486,17 @@ class _DettagliDenunciaRebeccaState extends State<DettagliDenunciaRebecca> {
                                             if (await canLaunchUrl(uri)) {
                                               await launchUrl(uri);
                                             } else {
-                                              throw 'Impossibile aprire l\'URL: $url';
+                                              //throw 'Impossibile aprire l\'URL: $url';
+                                              Fluttertoast.showToast(
+                                                  msg: "Impossibile aprire il file!",
+                                                  toastLength: Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: Colors.red,
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0
+                                              );
+
                                             }
                                           },
                                           child: Column(
