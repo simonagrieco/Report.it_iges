@@ -51,11 +51,32 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   final ImagePicker _picker = ImagePicker();
 
   final regexEmail = RegExp(r"^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$");
-  //   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   final regexIndirizzo = RegExp(r"^[a-zA-Z+\s]+[,]?\s?[0-9]+$");
   final regexCap = RegExp(r"^[0-9]{5}$");
   final regexProvincia = RegExp(r"^[a-zA-Z]{2}$");
   final regexCellulare = RegExp(r"^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$");
+  List<String> regioniItaliane = [
+    "Abruzzo",
+    "Basilicata",
+    "Calabria",
+    "Campania",
+    "Emilia-Romagna",
+    "Friuli Venezia Giulia",
+    "Lazio",
+    "Liguria",
+    "Lombardia",
+    "Marche",
+    "Molise",
+    "Piemonte",
+    "Puglia",
+    "Sardegna",
+    "Sicilia",
+    "Toscana",
+    "Trentino-Alto Adige",
+    "Umbria",
+    "Valle d'Aosta",
+    "Veneto"
+  ];
 
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -405,11 +426,14 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             const InputDecoration(labelText: 'Regione'),
                             controller: regioneController,
                             validator: (value) {
+                              String? valueLowerCase = value?.toLowerCase();
+                              bool isValidRegion = regioniItaliane.any((regione) => regione.toLowerCase() == valueLowerCase);
+
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci la regione.';
-                              } /* else if (!regexIndirizzo.hasMatch(value)) {
-                                return 'Per favore, inserisci un indirizzo valido.';
-                              } */
+                              } else if (!isValidRegion) {
+                                return 'Per favore, inserisci una regione valida.';
+                              }
                               return null;
                             },
                           ),
@@ -728,7 +752,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                           SizedBox(height: 40,),
                           //Aggiunto per img
                           Text(
-                            "Se in possesso, carica contenuti multimediali relativi alla vicenda (foto, video e/o documenti)",
+                            "Se in possesso, carica contenuti multimediali relativi alla vicenda (foto, audio, video e/o documenti)",
                             style: ThemeText.corpoInoltro,
                           ),
                           SizedBox(height: 10,),
@@ -871,96 +895,6 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   }
 
   //metodo per selezionare foto
-  /*Future<void> _pickImages() async {
-    if (Platform.isAndroid) {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
-      final sdkInt = androidInfo.version.sdkInt ?? 0;
-      if (sdkInt <= 32) {
-        // Per Android versioni <= 32 (fino ad Android 12)
-        if (await Permission.storage.request().isGranted) {
-          // Permesso di accesso alla memoria esterna concesso
-          final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-          if (pickedFile != null) {
-            // Gestisci il file selezionato
-          }
-        } else {
-          print("Permessi di accesso alla memoria esterna negati");
-        }
-      } else {
-        // Per Android versioni >= 33 (Android 13 e successivi)
-        if (await Permission.photos.request().isGranted) {
-          // Permesso di accesso alle foto concesso
-          final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-          if (pickedFile != null) {
-            // Gestisci il file selezionato
-          }
-        } else {
-          print("Permessi di accesso alle foto negati");
-        }
-      }
-    } else {
-      // Gestione permessi per iOS o altre piattaforme
-      if (await Permission.photos.request().isGranted) {
-        // Permesso di accesso alle foto concesso
-        final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-        if (pickedFile != null) {
-          // Gestisci il file selezionato
-        }
-      } else {
-        print("Permessi di accesso alle foto negati");
-      }
-    }
-  }
-
-  Future<void> _pickImages() async {
-    if (Platform.isAndroid) {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
-      final sdkInt = androidInfo.version.sdkInt ?? 0;
-      if (sdkInt <= 32) {
-        // Per Android versioni <= 32 (fino ad Android 12)
-        if (await Permission.storage.request().isGranted) {
-          // Permesso di accesso alla memoria esterna concesso
-          final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-          if (pickedFile != null) {
-            // Aggiungi il file selezionato alla lista _selectedImages
-            setState(() {
-              _selectedImages.add(File(pickedFile.path));
-            });
-          }
-        } else {
-          print("Permessi di accesso alla memoria esterna negati");
-        }
-      } else {
-        // Per Android versioni >= 33 (Android 13 e successivi)
-        if (await Permission.photos.request().isGranted) {
-          // Permesso di accesso alle foto concesso
-          final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-          if (pickedFile != null) {
-            // Aggiungi il file selezionato alla lista _selectedImages
-            setState(() {
-              _selectedImages.add(File(pickedFile.path));
-            });
-          }
-        } else {
-          print("Permessi di accesso alle foto negati");
-        }
-      }
-    } else {
-      // Gestione permessi per iOS o altre piattaforme
-      if (await Permission.photos.request().isGranted) {
-        // Permesso di accesso alle foto concesso
-        final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-        if (pickedFile != null) {
-          // Aggiungi il file selezionato alla lista _selectedImages
-          setState(() {
-            _selectedImages.add(File(pickedFile.path));
-          });
-        }
-      } else {
-        print("Permessi di accesso alle foto negati");
-      }
-    }
-  } */
   Future<void> _pickFiles() async {
     if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -972,7 +906,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
           final result = await FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
-            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'doc', 'docx','webp'],
+            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx','webp'],
           );
           if (result != null) {
             setState(() {
@@ -989,7 +923,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
           final result = await FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
-            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'doc', 'docx'],
+            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx'],
           );
           if (result != null) {
             setState(() {
@@ -1007,7 +941,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
         final result = await FilePicker.platform.pickFiles(
           allowMultiple: true,
           type: FileType.custom,
-          allowedExtensions: ['jpg', 'jpeg', 'png', 'mp4', 'pdf', 'doc', 'docx'],
+          allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx'],
         );
         if (result != null) {
           setState(() {
