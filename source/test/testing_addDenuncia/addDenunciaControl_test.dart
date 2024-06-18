@@ -226,7 +226,7 @@ void main() {
   group("AddDenuncia", () {
 
     //formato indirizzo
-    test("TC_GD.1.1_1 ", (() async {
+    test("TC_GD.1_1 ", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -274,7 +274,7 @@ void main() {
     }));
 
     //lunghezza indirizzo
-    test("TC_GD.1.1_2", (() async {
+    test("TC_GD.1_2", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -323,7 +323,7 @@ void main() {
     }));
 
     //formato cap
-    test("TC_GD.1.1_3", (() async {
+    test("TC_GD.1_3", (() async {
       String capDenunciante = "84016777";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -370,7 +370,7 @@ void main() {
     }));
 
     //formato num cellulare
-    test("TC_GD.1.1_4", (() async {
+    test("TC_GD.1_4", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -417,7 +417,7 @@ void main() {
     }));
 
     //formato provincia
-    test("TC_GD.1.1_5", (() async {
+    test("TC_GD.1_5", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -464,7 +464,7 @@ void main() {
     }));
 
     //AGGIUNTI PER REGIONE
-    test("TC_GD.1.1_6", (() async {
+    test("TC_GD.1_6", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "campnia";
       String nomeDenunciante = "Alberto";
@@ -511,7 +511,7 @@ void main() {
     }));
 
     //formato mail
-    test("TC_GD.1.1_7", (() async {
+    test("TC_GD.1_7", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -558,7 +558,7 @@ void main() {
     }));
 
     //categoria discriminazione
-    /*test("TC_GD.1.1_8", (() async {
+    /*test("TC_GD.1_8", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -605,7 +605,7 @@ void main() {
     })); */
 
     //lunghezza nome vittima
-    test("TC_GD.1.1_9", (() async {
+    test("TC_GD.1_9", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -652,7 +652,7 @@ void main() {
     }));
 
     //lunghezza cognome vittima
-    test("TC_GD.1.1_10", (() async {
+    test("TC_GD.1_10", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -699,7 +699,7 @@ void main() {
     }));
 
     //lunghezza campo denunciato
-    test("TC_GD.1.1_11", (() async {
+    test("TC_GD.1_11", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -747,7 +747,7 @@ void main() {
     }));
 
     //lunghezza descrizione
-    test("TC_GD.1.1_12", (() async {
+    test("TC_GD.1_12", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -796,7 +796,7 @@ void main() {
     }));
 
     //valore consenso
-    test("TC_GD.1.1_13", (() async {
+    test("TC_GD.1_13", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -843,7 +843,7 @@ void main() {
     }));
 
     //archiviazione
-    test("TC_GD.1.1_14", (() async {
+    test("TC_GD.1_14", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -890,7 +890,7 @@ void main() {
     }));
 
     //mediaUrls
-    test("TC_GD.1.1_15", (() async {
+    test("TC_GD.1_15", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -941,7 +941,7 @@ void main() {
     }));
 
     //lunghezza nome denunciate
-    test("TC_GD.1.1_16", (() async {
+    test("TC_GD.1_16", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante =
@@ -989,7 +989,7 @@ void main() {
     }));
 
     //lunghezza cognome denunciate
-    test("TC_GD.1.1_17", (() async {
+    test("TC_GD.1_17", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -1037,7 +1037,7 @@ void main() {
     }));
 
     //Corretto
-    test("TC_GD.1.1_18", (() async {
+    test("TC_GD.1_18", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
@@ -1086,7 +1086,7 @@ void main() {
 
 
   //formato documento
-  test("TC_GD.1.1_x", (() async {
+  test("TC_GD.1_x", (() async {
     String capDenunciante = "84016";
     String regioneDenunciante = "Campania";
     String nomeDenunciante = "Alberto";
@@ -1133,7 +1133,7 @@ void main() {
   }));
 
   //lunghezza codice documento
-  test("TC_GD.1.1_y", (() async {
+  test("TC_GD.1_y", (() async {
     String capDenunciante = "84016";
     String regioneDenunciante = "Campania";
     String nomeDenunciante = "Alberto";
@@ -1180,7 +1180,7 @@ void main() {
   }));
 
   //data scadenza documento
-  test("TC_GD.1.1_z", (() async {
+  test("TC_GD.1_z", (() async {
     String capDenunciante = "84016";
     String regioneDenunciante = "Campania";
     String nomeDenunciante = "Alberto";
