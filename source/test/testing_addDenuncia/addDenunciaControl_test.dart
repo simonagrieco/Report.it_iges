@@ -126,6 +126,7 @@ void main() {
     if (!regexEmail.hasMatch(emailDenunciante)) {
       return ("Errore: formato mail non rispettato");
     }
+
     if (tipoDocDenunciante == "Carta Identita" ||
         tipoDocDenunciante == "Patente") {
       if ((numeroDocDenunciante?.length)! > 10) {
@@ -208,8 +209,7 @@ void main() {
       indirizzoCaserma: null,
       gradoUff: null,
       regioneDenunciante: regioneDenunciante,
-      //AGGIUNTO
-      mediaUrls: mediaUrls, //Aggiunto per img
+      mediaUrls: mediaUrls,
     );
     when(dao.addDenuncia(denuncia)).thenAnswer((realInvocation) => Future((() {
           return "someuid";
@@ -224,6 +224,7 @@ void main() {
   }
 
   group("AddDenuncia", () {
+
     //formato indirizzo
     test("TC_GD.1.1_1 ", (() async {
       String capDenunciante = "84016";
@@ -251,7 +252,6 @@ void main() {
       assert(await funzioneTest(
             cognomeDenunciante: cognomeDenunciante,
             regioneDenunciante: regioneDenunciante,
-            //AGGIUNTO
             indirizzoDenunciante: indirizzoDenunciante,
             provinciaDenunciante: provinciaDenunciante,
             cellulareDenunciante: cellulareDenunciante,
@@ -317,7 +317,7 @@ void main() {
             nomeDenunciante: nomeDenunciante,
             capDenunciante: capDenunciante,
             regioneDenunciante: regioneDenunciante,
-            mediaUrls: mediaUrls, //AGGIUNTO
+            mediaUrls: mediaUrls,
           ) ==
           "Errore: lunghezza indirizzo non rispettata");
     }));
@@ -349,7 +349,6 @@ void main() {
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
               regioneDenunciante: regioneDenunciante,
-              //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -373,7 +372,7 @@ void main() {
     //formato num cellulare
     test("TC_GD.1.1_4", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -397,7 +396,6 @@ void main() {
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
               regioneDenunciante: regioneDenunciante,
-              //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -421,7 +419,7 @@ void main() {
     //formato provincia
     test("TC_GD.1.1_5", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -468,7 +466,7 @@ void main() {
     //AGGIUNTI PER REGIONE
     test("TC_GD.1.1_6", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "campnia"; //AGGIUNTO
+      String regioneDenunciante = "campnia";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -492,7 +490,6 @@ void main() {
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
               regioneDenunciante: regioneDenunciante,
-              //Aggiunto
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -516,7 +513,7 @@ void main() {
     //formato mail
     test("TC_GD.1.1_7", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -610,7 +607,7 @@ void main() {
     //lunghezza nome vittima
     test("TC_GD.1.1_9", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -704,7 +701,7 @@ void main() {
     //lunghezza campo denunciato
     test("TC_GD.1.1_11", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -752,7 +749,7 @@ void main() {
     //lunghezza descrizione
     test("TC_GD.1.1_12", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -801,7 +798,7 @@ void main() {
     //valore consenso
     test("TC_GD.1.1_13", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -848,7 +845,7 @@ void main() {
     //archiviazione
     test("TC_GD.1.1_14", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -895,7 +892,7 @@ void main() {
     //mediaUrls
     test("TC_GD.1.1_15", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -946,7 +943,7 @@ void main() {
     //lunghezza nome denunciate
     test("TC_GD.1.1_16", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante =
           "AlbertoAlbertoAlbertoAlbertoAlberto";
       String cognomeDenunciante = "Genovese";
@@ -994,7 +991,7 @@ void main() {
     //lunghezza cognome denunciate
     test("TC_GD.1.1_17", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante =
           "GenoveseGenoveseGenoveseGenovese";
@@ -1039,151 +1036,10 @@ void main() {
           "Errore: lunghezza cognome denunciate non rispettata");
     }));
 
-    //formato documento
+    //Corretto
     test("TC_GD.1.1_18", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
-      String nomeDenunciante = "Alberto";
-      String cognomeDenunciante = "Genovese";
-      String indirizzoDenunciante = "Via Traversa Taurano, 46";
-      String provinciaDenunciante = "SA";
-      String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "alb.genovese@gmail.com";
-      String? tipoDocDenunciante = "CartaPassaporto";
-      String? numeroDocDenunciante = "AY1234567";
-      Timestamp scadenzaDocDenunciante =
-          Timestamp.fromDate(DateTime.parse("2030-12-12"));
-      CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
-      String nomeVittima = "Gonzalo";
-      String denunciato = "Jimmy Sbacco";
-      String descrizione =
-          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
-      String cognomeVittima = "Ortiz";
-      bool consenso = true;
-      bool? alreadyFiled = false;
-      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
-
-      assert(await funzioneTest(
-              cognomeDenunciante: cognomeDenunciante,
-              regioneDenunciante: regioneDenunciante,
-              indirizzoDenunciante: indirizzoDenunciante,
-              provinciaDenunciante: provinciaDenunciante,
-              cellulareDenunciante: cellulareDenunciante,
-              emailDenunciante: emailDenunciante,
-              tipoDocDenunciante: tipoDocDenunciante,
-              numeroDocDenunciante: numeroDocDenunciante,
-              scadenzaDocDenunciante: scadenzaDocDenunciante,
-              categoriaDenuncia: categoriaDenuncia,
-              nomeVittima: nomeVittima,
-              denunciato: denunciato,
-              descrizione: descrizione,
-              cognomeVittima: cognomeVittima,
-              consenso: consenso,
-              alreadyFiled: alreadyFiled,
-              nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante,
-              mediaUrls: mediaUrls) ==
-          "Errore: formato documento non valido");
-    }));
-
-    //lunghezza codice documento
-    test("TC_GD.1.1_19", (() async {
-      String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
-      String nomeDenunciante = "Alberto";
-      String cognomeDenunciante = "Genovese";
-      String indirizzoDenunciante = "Via Traversa Taurano, 46";
-      String provinciaDenunciante = "SA";
-      String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "alb.genovese@gmail.com";
-      String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "AY1234DDYRHIIDWDIWJQO";
-      Timestamp scadenzaDocDenunciante =
-          Timestamp.fromDate(DateTime.parse("2030-12-12"));
-      CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
-      String nomeVittima = "Gonzalo";
-      String denunciato = "Jimmy Sbacco";
-      String descrizione =
-          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
-      String cognomeVittima = "Ortiz";
-      bool consenso = true;
-      bool? alreadyFiled = false;
-      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
-
-      assert(await funzioneTest(
-              cognomeDenunciante: cognomeDenunciante,
-              regioneDenunciante: regioneDenunciante,
-              indirizzoDenunciante: indirizzoDenunciante,
-              provinciaDenunciante: provinciaDenunciante,
-              cellulareDenunciante: cellulareDenunciante,
-              emailDenunciante: emailDenunciante,
-              tipoDocDenunciante: tipoDocDenunciante,
-              numeroDocDenunciante: numeroDocDenunciante,
-              scadenzaDocDenunciante: scadenzaDocDenunciante,
-              categoriaDenuncia: categoriaDenuncia,
-              nomeVittima: nomeVittima,
-              denunciato: denunciato,
-              descrizione: descrizione,
-              cognomeVittima: cognomeVittima,
-              consenso: consenso,
-              alreadyFiled: alreadyFiled,
-              nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante,
-              mediaUrls: mediaUrls) ==
-          "Errore: lunghezza codice documento non rispettata");
-    }));
-
-    //data scadenza documento
-    test("TC_GD.1.1_20", (() async {
-      String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
-      String nomeDenunciante = "Alberto";
-      String cognomeDenunciante = "Genovese";
-      String indirizzoDenunciante = "Via Traversa Taurano, 46";
-      String provinciaDenunciante = "SA";
-      String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "alb.genovese@gmail.com";
-      String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "123456";
-      Timestamp scadenzaDocDenunciante =
-          Timestamp.fromDate(DateTime.parse("2010-12-12"));
-      CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
-      String nomeVittima = "Gonzalo";
-      String denunciato = "Jimmy Sbacco";
-      String descrizione =
-          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
-      String cognomeVittima = "Ortiz";
-      bool consenso = true;
-      bool? alreadyFiled = false;
-      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
-
-      assert(await funzioneTest(
-              cognomeDenunciante: cognomeDenunciante,
-              regioneDenunciante: regioneDenunciante,
-              indirizzoDenunciante: indirizzoDenunciante,
-              provinciaDenunciante: provinciaDenunciante,
-              cellulareDenunciante: cellulareDenunciante,
-              emailDenunciante: emailDenunciante,
-              tipoDocDenunciante: tipoDocDenunciante,
-              numeroDocDenunciante: numeroDocDenunciante,
-              scadenzaDocDenunciante: scadenzaDocDenunciante,
-              categoriaDenuncia: categoriaDenuncia,
-              nomeVittima: nomeVittima,
-              denunciato: denunciato,
-              descrizione: descrizione,
-              cognomeVittima: cognomeVittima,
-              consenso: consenso,
-              alreadyFiled: alreadyFiled,
-              nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante,
-              mediaUrls: mediaUrls) ==
-          "Errore: documento scaduto");
-    }));
-
-    //Corretto
-    test("TC_GD.1.1_21", (() async {
-      String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
@@ -1227,4 +1083,146 @@ void main() {
           "Corretto");
     }));
   });
+
+
+  //formato documento
+  test("TC_GD.1.1_x", (() async {
+    String capDenunciante = "84016";
+    String regioneDenunciante = "Campania";
+    String nomeDenunciante = "Alberto";
+    String cognomeDenunciante = "Genovese";
+    String indirizzoDenunciante = "Via Traversa Taurano, 46";
+    String provinciaDenunciante = "SA";
+    String cellulareDenunciante = "+393802110703";
+    String emailDenunciante = "alb.genovese@gmail.com";
+    String? tipoDocDenunciante = "CartaPassaporto";
+    String? numeroDocDenunciante = "AY1234567";
+    Timestamp scadenzaDocDenunciante =
+    Timestamp.fromDate(DateTime.parse("2030-12-12"));
+    CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
+    String nomeVittima = "Gonzalo";
+    String denunciato = "Jimmy Sbacco";
+    String descrizione =
+        "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+    String cognomeVittima = "Ortiz";
+    bool consenso = true;
+    bool? alreadyFiled = false;
+    List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
+
+    assert(await funzioneTest(
+        cognomeDenunciante: cognomeDenunciante,
+        regioneDenunciante: regioneDenunciante,
+        indirizzoDenunciante: indirizzoDenunciante,
+        provinciaDenunciante: provinciaDenunciante,
+        cellulareDenunciante: cellulareDenunciante,
+        emailDenunciante: emailDenunciante,
+        tipoDocDenunciante: tipoDocDenunciante,
+        numeroDocDenunciante: numeroDocDenunciante,
+        scadenzaDocDenunciante: scadenzaDocDenunciante,
+        categoriaDenuncia: categoriaDenuncia,
+        nomeVittima: nomeVittima,
+        denunciato: denunciato,
+        descrizione: descrizione,
+        cognomeVittima: cognomeVittima,
+        consenso: consenso,
+        alreadyFiled: alreadyFiled,
+        nomeDenunciante: nomeDenunciante,
+        capDenunciante: capDenunciante,
+        mediaUrls: mediaUrls) ==
+        "Errore: formato documento non valido");
+  }));
+
+  //lunghezza codice documento
+  test("TC_GD.1.1_y", (() async {
+    String capDenunciante = "84016";
+    String regioneDenunciante = "Campania";
+    String nomeDenunciante = "Alberto";
+    String cognomeDenunciante = "Genovese";
+    String indirizzoDenunciante = "Via Traversa Taurano, 46";
+    String provinciaDenunciante = "SA";
+    String cellulareDenunciante = "+393802110703";
+    String emailDenunciante = "alb.genovese@gmail.com";
+    String? tipoDocDenunciante = "Carta Identita";
+    String? numeroDocDenunciante = "AY1234DDYRHIIDWDIWJQO";
+    Timestamp scadenzaDocDenunciante =
+    Timestamp.fromDate(DateTime.parse("2030-12-12"));
+    CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
+    String nomeVittima = "Gonzalo";
+    String denunciato = "Jimmy Sbacco";
+    String descrizione =
+        "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+    String cognomeVittima = "Ortiz";
+    bool consenso = true;
+    bool? alreadyFiled = false;
+    List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
+
+    assert(await funzioneTest(
+        cognomeDenunciante: cognomeDenunciante,
+        regioneDenunciante: regioneDenunciante,
+        indirizzoDenunciante: indirizzoDenunciante,
+        provinciaDenunciante: provinciaDenunciante,
+        cellulareDenunciante: cellulareDenunciante,
+        emailDenunciante: emailDenunciante,
+        tipoDocDenunciante: tipoDocDenunciante,
+        numeroDocDenunciante: numeroDocDenunciante,
+        scadenzaDocDenunciante: scadenzaDocDenunciante,
+        categoriaDenuncia: categoriaDenuncia,
+        nomeVittima: nomeVittima,
+        denunciato: denunciato,
+        descrizione: descrizione,
+        cognomeVittima: cognomeVittima,
+        consenso: consenso,
+        alreadyFiled: alreadyFiled,
+        nomeDenunciante: nomeDenunciante,
+        capDenunciante: capDenunciante,
+        mediaUrls: mediaUrls) ==
+        "Errore: lunghezza codice documento non rispettata");
+  }));
+
+  //data scadenza documento
+  test("TC_GD.1.1_z", (() async {
+    String capDenunciante = "84016";
+    String regioneDenunciante = "Campania";
+    String nomeDenunciante = "Alberto";
+    String cognomeDenunciante = "Genovese";
+    String indirizzoDenunciante = "Via Traversa Taurano, 46";
+    String provinciaDenunciante = "SA";
+    String cellulareDenunciante = "+393802110703";
+    String emailDenunciante = "alb.genovese@gmail.com";
+    String? tipoDocDenunciante = "Carta Identita";
+    String? numeroDocDenunciante = "123456";
+    Timestamp scadenzaDocDenunciante =
+    Timestamp.fromDate(DateTime.parse("2010-12-12"));
+    CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
+    String nomeVittima = "Gonzalo";
+    String denunciato = "Jimmy Sbacco";
+    String descrizione =
+        "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+    String cognomeVittima = "Ortiz";
+    bool consenso = true;
+    bool? alreadyFiled = false;
+    List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
+
+    assert(await funzioneTest(
+        cognomeDenunciante: cognomeDenunciante,
+        regioneDenunciante: regioneDenunciante,
+        indirizzoDenunciante: indirizzoDenunciante,
+        provinciaDenunciante: provinciaDenunciante,
+        cellulareDenunciante: cellulareDenunciante,
+        emailDenunciante: emailDenunciante,
+        tipoDocDenunciante: tipoDocDenunciante,
+        numeroDocDenunciante: numeroDocDenunciante,
+        scadenzaDocDenunciante: scadenzaDocDenunciante,
+        categoriaDenuncia: categoriaDenuncia,
+        nomeVittima: nomeVittima,
+        denunciato: denunciato,
+        descrizione: descrizione,
+        cognomeVittima: cognomeVittima,
+        consenso: consenso,
+        alreadyFiled: alreadyFiled,
+        nomeDenunciante: nomeDenunciante,
+        capDenunciante: capDenunciante,
+        mediaUrls: mediaUrls) ==
+        "Errore: documento scaduto");
+  }));
 }
