@@ -7,8 +7,10 @@ import 'dart:async' as _i3;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:report_it/application/entity/entity_GA/amministratore_entity.dart'
+    as _i11;
 import 'package:report_it/application/entity/entity_GA/operatoreCUP_entity.dart'
-    as _i13;
+    as _i14;
 import 'package:report_it/application/entity/entity_GA/spid_entity.dart'
     as _i10;
 import 'package:report_it/application/entity/entity_GA/super_utente.dart'
@@ -16,9 +18,9 @@ import 'package:report_it/application/entity/entity_GA/super_utente.dart'
 import 'package:report_it/application/entity/entity_GA/tipo_ufficiale.dart'
     as _i8;
 import 'package:report_it/application/entity/entity_GA/uffPolGiud_entity.dart'
-    as _i12;
+    as _i13;
 import 'package:report_it/application/entity/entity_GA/utente_entity.dart'
-    as _i11;
+    as _i12;
 import 'package:report_it/application/entity/entity_GD/denuncia_entity.dart'
     as _i4;
 import 'package:report_it/application/entity/entity_GD/stato_denuncia.dart'
@@ -219,14 +221,25 @@ class MockAutenticazioneDAO extends _i1.Mock implements _i9.AutenticazioneDAO {
       ) as _i3.Future<_i10.SPID?>);
 
   @override
-  _i3.Future<_i11.Utente?> RetrieveUtenteByID(String? uid) =>
+  _i3.Future<_i11.Amministratore?> RetrieveAmministratoreByEmail(
+          String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #RetrieveAmministratoreByEmail,
+          [email],
+        ),
+        returnValue: _i3.Future<_i11.Amministratore?>.value(),
+      ) as _i3.Future<_i11.Amministratore?>);
+
+  @override
+  _i3.Future<_i12.Utente?> RetrieveUtenteByID(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveUtenteByID,
           [uid],
         ),
-        returnValue: _i3.Future<_i11.Utente?>.value(),
-      ) as _i3.Future<_i11.Utente?>);
+        returnValue: _i3.Future<_i12.Utente?>.value(),
+      ) as _i3.Future<_i12.Utente?>);
 
   @override
   _i3.Future<_i10.SPID?> RetrieveSPIDByID(String? uid) => (super.noSuchMethod(
@@ -238,33 +251,43 @@ class MockAutenticazioneDAO extends _i1.Mock implements _i9.AutenticazioneDAO {
       ) as _i3.Future<_i10.SPID?>);
 
   @override
-  _i3.Future<_i12.UffPolGiud?> RetrieveUffPolGiudByID(String? uid) =>
+  _i3.Future<_i13.UffPolGiud?> RetrieveUffPolGiudByID(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveUffPolGiudByID,
           [uid],
         ),
-        returnValue: _i3.Future<_i12.UffPolGiud?>.value(),
-      ) as _i3.Future<_i12.UffPolGiud?>);
+        returnValue: _i3.Future<_i13.UffPolGiud?>.value(),
+      ) as _i3.Future<_i13.UffPolGiud?>);
 
   @override
-  _i3.Future<_i13.OperatoreCUP?> RetrieveCUPByID(String? uid) =>
+  _i3.Future<_i14.OperatoreCUP?> RetrieveCUPByID(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveCUPByID,
           [uid],
         ),
-        returnValue: _i3.Future<_i13.OperatoreCUP?>.value(),
-      ) as _i3.Future<_i13.OperatoreCUP?>);
+        returnValue: _i3.Future<_i14.OperatoreCUP?>.value(),
+      ) as _i3.Future<_i14.OperatoreCUP?>);
 
   @override
-  _i3.Future<List<_i11.Utente?>> RetrieveAllUtente() => (super.noSuchMethod(
+  _i3.Future<_i11.Amministratore?> RetrieveAmministratoreByID(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #RetrieveAmministratoreByID,
+          [uid],
+        ),
+        returnValue: _i3.Future<_i11.Amministratore?>.value(),
+      ) as _i3.Future<_i11.Amministratore?>);
+
+  @override
+  _i3.Future<List<_i12.Utente?>> RetrieveAllUtente() => (super.noSuchMethod(
         Invocation.method(
           #RetrieveAllUtente,
           [],
         ),
-        returnValue: _i3.Future<List<_i11.Utente?>>.value(<_i11.Utente?>[]),
-      ) as _i3.Future<List<_i11.Utente?>>);
+        returnValue: _i3.Future<List<_i12.Utente?>>.value(<_i12.Utente?>[]),
+      ) as _i3.Future<List<_i12.Utente?>>);
 
   @override
   _i3.Future<List<_i10.SPID?>> RetrieveAllSPID() => (super.noSuchMethod(
@@ -276,26 +299,37 @@ class MockAutenticazioneDAO extends _i1.Mock implements _i9.AutenticazioneDAO {
       ) as _i3.Future<List<_i10.SPID?>>);
 
   @override
-  _i3.Future<List<_i12.UffPolGiud?>> RetrieveAllUffPolGiud() =>
+  _i3.Future<List<_i13.UffPolGiud?>> RetrieveAllUffPolGiud() =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveAllUffPolGiud,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i12.UffPolGiud?>>.value(<_i12.UffPolGiud?>[]),
-      ) as _i3.Future<List<_i12.UffPolGiud?>>);
+            _i3.Future<List<_i13.UffPolGiud?>>.value(<_i13.UffPolGiud?>[]),
+      ) as _i3.Future<List<_i13.UffPolGiud?>>);
 
   @override
-  _i3.Future<List<_i13.OperatoreCUP?>> RetrieveAllOperatoreCUP() =>
+  _i3.Future<List<_i14.OperatoreCUP?>> RetrieveAllOperatoreCUP() =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveAllOperatoreCUP,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i13.OperatoreCUP?>>.value(<_i13.OperatoreCUP?>[]),
-      ) as _i3.Future<List<_i13.OperatoreCUP?>>);
+            _i3.Future<List<_i14.OperatoreCUP?>>.value(<_i14.OperatoreCUP?>[]),
+      ) as _i3.Future<List<_i14.OperatoreCUP?>>);
+
+  @override
+  _i3.Future<List<_i11.Amministratore?>> RetrieveAllAmministratore() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #RetrieveAllAmministratore,
+          [],
+        ),
+        returnValue: _i3.Future<List<_i11.Amministratore?>>.value(
+            <_i11.Amministratore?>[]),
+      ) as _i3.Future<List<_i11.Amministratore?>>);
 }
 
 /// A class which mocks [DenunciaDao].
@@ -481,14 +515,25 @@ class MockAutenticazioneDAORelaxed extends _i1.Mock
       ) as _i3.Future<_i10.SPID?>);
 
   @override
-  _i3.Future<_i11.Utente?> RetrieveUtenteByID(String? uid) =>
+  _i3.Future<_i11.Amministratore?> RetrieveAmministratoreByEmail(
+          String? email) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #RetrieveAmministratoreByEmail,
+          [email],
+        ),
+        returnValue: _i3.Future<_i11.Amministratore?>.value(),
+      ) as _i3.Future<_i11.Amministratore?>);
+
+  @override
+  _i3.Future<_i12.Utente?> RetrieveUtenteByID(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveUtenteByID,
           [uid],
         ),
-        returnValue: _i3.Future<_i11.Utente?>.value(),
-      ) as _i3.Future<_i11.Utente?>);
+        returnValue: _i3.Future<_i12.Utente?>.value(),
+      ) as _i3.Future<_i12.Utente?>);
 
   @override
   _i3.Future<_i10.SPID?> RetrieveSPIDByID(String? uid) => (super.noSuchMethod(
@@ -500,33 +545,43 @@ class MockAutenticazioneDAORelaxed extends _i1.Mock
       ) as _i3.Future<_i10.SPID?>);
 
   @override
-  _i3.Future<_i12.UffPolGiud?> RetrieveUffPolGiudByID(String? uid) =>
+  _i3.Future<_i13.UffPolGiud?> RetrieveUffPolGiudByID(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveUffPolGiudByID,
           [uid],
         ),
-        returnValue: _i3.Future<_i12.UffPolGiud?>.value(),
-      ) as _i3.Future<_i12.UffPolGiud?>);
+        returnValue: _i3.Future<_i13.UffPolGiud?>.value(),
+      ) as _i3.Future<_i13.UffPolGiud?>);
 
   @override
-  _i3.Future<_i13.OperatoreCUP?> RetrieveCUPByID(String? uid) =>
+  _i3.Future<_i14.OperatoreCUP?> RetrieveCUPByID(String? uid) =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveCUPByID,
           [uid],
         ),
-        returnValue: _i3.Future<_i13.OperatoreCUP?>.value(),
-      ) as _i3.Future<_i13.OperatoreCUP?>);
+        returnValue: _i3.Future<_i14.OperatoreCUP?>.value(),
+      ) as _i3.Future<_i14.OperatoreCUP?>);
 
   @override
-  _i3.Future<List<_i11.Utente?>> RetrieveAllUtente() => (super.noSuchMethod(
+  _i3.Future<_i11.Amministratore?> RetrieveAmministratoreByID(String? uid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #RetrieveAmministratoreByID,
+          [uid],
+        ),
+        returnValue: _i3.Future<_i11.Amministratore?>.value(),
+      ) as _i3.Future<_i11.Amministratore?>);
+
+  @override
+  _i3.Future<List<_i12.Utente?>> RetrieveAllUtente() => (super.noSuchMethod(
         Invocation.method(
           #RetrieveAllUtente,
           [],
         ),
-        returnValue: _i3.Future<List<_i11.Utente?>>.value(<_i11.Utente?>[]),
-      ) as _i3.Future<List<_i11.Utente?>>);
+        returnValue: _i3.Future<List<_i12.Utente?>>.value(<_i12.Utente?>[]),
+      ) as _i3.Future<List<_i12.Utente?>>);
 
   @override
   _i3.Future<List<_i10.SPID?>> RetrieveAllSPID() => (super.noSuchMethod(
@@ -538,24 +593,35 @@ class MockAutenticazioneDAORelaxed extends _i1.Mock
       ) as _i3.Future<List<_i10.SPID?>>);
 
   @override
-  _i3.Future<List<_i12.UffPolGiud?>> RetrieveAllUffPolGiud() =>
+  _i3.Future<List<_i13.UffPolGiud?>> RetrieveAllUffPolGiud() =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveAllUffPolGiud,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i12.UffPolGiud?>>.value(<_i12.UffPolGiud?>[]),
-      ) as _i3.Future<List<_i12.UffPolGiud?>>);
+            _i3.Future<List<_i13.UffPolGiud?>>.value(<_i13.UffPolGiud?>[]),
+      ) as _i3.Future<List<_i13.UffPolGiud?>>);
 
   @override
-  _i3.Future<List<_i13.OperatoreCUP?>> RetrieveAllOperatoreCUP() =>
+  _i3.Future<List<_i14.OperatoreCUP?>> RetrieveAllOperatoreCUP() =>
       (super.noSuchMethod(
         Invocation.method(
           #RetrieveAllOperatoreCUP,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i13.OperatoreCUP?>>.value(<_i13.OperatoreCUP?>[]),
-      ) as _i3.Future<List<_i13.OperatoreCUP?>>);
+            _i3.Future<List<_i14.OperatoreCUP?>>.value(<_i14.OperatoreCUP?>[]),
+      ) as _i3.Future<List<_i14.OperatoreCUP?>>);
+
+  @override
+  _i3.Future<List<_i11.Amministratore?>> RetrieveAllAmministratore() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #RetrieveAllAmministratore,
+          [],
+        ),
+        returnValue: _i3.Future<List<_i11.Amministratore?>>.value(
+            <_i11.Amministratore?>[]),
+      ) as _i3.Future<List<_i11.Amministratore?>>);
 }

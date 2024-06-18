@@ -26,6 +26,23 @@ class AutenticazioneDAO {
     return u;
   }
 
+  //AGGIUNTO METODO PER NUOVO UTENTE AMMINISTRATORE (TESTING)
+  Future<Amministratore?> RetrieveAmministratoreByEmail(String email) async {
+    var ref = database.collection("Amministratore").where("Email", isEqualTo: email);
+
+    var u = await ref.get().then((value) {
+      if (value.docs.isEmpty) {
+        return null;
+      } else {
+        Amministratore u = AdapterAmministratore().fromJson(value.docs.first.data());
+        return u;
+      }
+    });
+
+    return u;
+  }
+
+
   // ignore: non_constant_identifier_names
   Future<Utente?> RetrieveUtenteByID(String uid) async {
     var ref = database.collection("Utente").doc(uid);
