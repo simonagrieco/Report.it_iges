@@ -32,34 +32,34 @@ void main() {
     auth = MockFirebaseAuth(mockUser: user, signedIn: true);
   });
 
-  funzioneTest(
-      { required String nomeDenunciante,
-      required String cognomeDenunciante,
-      required String regioneDenunciante, //AGGIUNTO
-      required String indirizzoDenunciante,
-      required String capDenunciante,
-      required String provinciaDenunciante,
-      required String cellulareDenunciante,
-      required String emailDenunciante,
-      required String? tipoDocDenunciante,
-      required String? numeroDocDenunciante,
-      required Timestamp scadenzaDocDenunciante,
-      required CategoriaDenuncia categoriaDenuncia,
-      required String nomeVittima,
-      required String denunciato,
-      required String descrizione,
-      required String cognomeVittima,
-      required bool consenso,
-      required bool? alreadyFiled,
-      required List<String> mediaUrls,
-      }) {
-
+  funzioneTest({
+    required String nomeDenunciante,
+    required String cognomeDenunciante,
+    required String regioneDenunciante, //AGGIUNTO
+    required String indirizzoDenunciante,
+    required String capDenunciante,
+    required String provinciaDenunciante,
+    required String cellulareDenunciante,
+    required String emailDenunciante,
+    required String? tipoDocDenunciante,
+    required String? numeroDocDenunciante,
+    required Timestamp scadenzaDocDenunciante,
+    required CategoriaDenuncia categoriaDenuncia,
+    required String nomeVittima,
+    required String denunciato,
+    required String descrizione,
+    required String cognomeVittima,
+    required bool consenso,
+    required bool? alreadyFiled,
+    required List<String> mediaUrls,
+  }) {
     Timestamp today = Timestamp.now();
     final regexEmail = RegExp(r"^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$");
     final regexIndirizzo = RegExp(r"^[a-zA-Z+\s]+[,]?\s?[0-9]+$");
     final regexCap = RegExp(r"^[0-9]{5}$");
     final regexProvincia = RegExp(r"^[a-zA-Z]{2}$");
-    final regexCellulare = RegExp(r"^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$");
+    final regexCellulare =
+        RegExp(r"^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$");
 
     final List<String> regioniItaliane = [
       "Abruzzo",
@@ -84,80 +84,88 @@ void main() {
       "Veneto"
     ];
     String? valueLowerCase = regioneDenunciante.toLowerCase();
-    bool isValidRegion = regioniItaliane.any((regione) => regione.toLowerCase() == valueLowerCase);
+    bool isValidRegion = regioniItaliane
+        .any((regione) => regione.toLowerCase() == valueLowerCase);
 
-    final List<String> allowedExtensions = ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx','webp'];
-
+    final List<String> allowedExtensions = [
+      'jpg',
+      'jpeg',
+      'png',
+      'mp3',
+      'mp4',
+      'pdf',
+      'doc',
+      'docx',
+      'webp'
+    ];
 
     final User? user = auth.currentUser;
     if (user == null) {
-    } else {
-
-    }
+    } else {}
     if (nomeDenunciante.length > 30) {
-      return ("Lunghezza nome denunciante non è valida");
+      return ("Errore: lunghezza nome denunciate non rispettata");
     }
     if (cognomeDenunciante.length > 30) {
-      return ("Lunghezza cognome denunciante non è valida");
+      return ("Errore: lunghezza cognome denunciate non rispettata");
     }
     if (indirizzoDenunciante.length > 50) {
-      return ("La lunghezza dell’indirizzo non è valida");
+      return ("Errore: lunghezza indirizzo non rispettata");
     }
     if (!regexIndirizzo.hasMatch(indirizzoDenunciante)) {
-      return ("Il formato dell’indirizzo non è valido");
+      return ("Errore: formato indirizzo non rispettato");
     }
     if (!regexCap.hasMatch(capDenunciante)) {
-      return ("Il formato del CAP non è rispettato");
+      return ("Errore: formato CAP non rispettato");
     }
     if (!regexProvincia.hasMatch(provinciaDenunciante)) {
-      return ("Il formato della provincia non è rispettato");
+      return ("Errore: formato provincia non rispettato");
     }
     if (!regexCellulare.hasMatch(cellulareDenunciante)) {
-      return ("Il formato del numero di cellulare non è rispettato");
+      return ("Errore: formato numero cellulare non rispettato");
     }
     if (!regexEmail.hasMatch(emailDenunciante)) {
-      return ("Il formato della e-mail non è rispettato");
+      return ("Errore: formato mail non rispettato");
     }
     if (tipoDocDenunciante == "Carta Identita" ||
         tipoDocDenunciante == "Patente") {
+      if ((numeroDocDenunciante?.length)! > 10) {
+        return ("Errore: lunghezza codice documento non rispettata");
+      }
       //aggiungere
     } else {
-      return ("Tipo documento non rispettato");
+      return ("Errore: formato documento non valido");
     }
-    if ((numeroDocDenunciante?.length)! > 15) {
-      return ("La lunghezza del numero del documento è errata");
-    }
+
     if (scadenzaDocDenunciante.toDate().compareTo(DateTime.now()) <= 0) {
-      return ("Errore il documento già è scaduto");
+      return ("Errore: documento scaduto");
     }
     try {
       CategoriaDenuncia.values.byName(categoriaDenuncia.name);
-
     } catch (e) {
-      return ("La categoria di discriminazione inserita è sconosciuta");
+      return ("Errore: categoria di discriminazione non trovata");
     }
     if (nomeVittima.length > 30) {
-      return ("La lunghezza del nome della vittima non è valida");
+      return ("Errore: lunghezza nome vittima non rispettata");
     }
     if (denunciato.length > 60) {
-      return ("La lunghezza del campo denunciato non è valida");
+      return ("Errore: lunghezza del campo denunciato non rispettata");
     }
     if (descrizione.length > 1000) {
-      return ("La lunghezza della descrizione non è valida");
+      return ("Errore: lunghezza descrizione non rispettata");
     }
     if (cognomeVittima.length > 30) {
-      return ("La lunghezza del cognome della vittima non è valida");
+      return ("Errore: lunghezza cognome vittima non rispettata");
     }
     if (consenso == false) {
-      return ("Il campo del consenso non è valido");
+      return ("Errore: valore consenso non riconosciuto");
     }
     if (alreadyFiled == null) {
-      return ("Il campo che indica se la pratica è stata già precedentemente archiviata non è valido");
+      return ("Errore: valore pratica archiviata non riconosciuto");
     }
 
     //Controllo regione (aggiunto)
     if (!isValidRegion) {
-      return 'La regione non è valida';
+      return 'Errore: regione non valida';
     }
     //Controllo mediaUrls
     for (var url in mediaUrls) {
@@ -170,37 +178,38 @@ void main() {
     }
 
     Denuncia denuncia = Denuncia(
-        id: null,
-        nomeDenunciante: nomeDenunciante,
-        cognomeDenunciante: cognomeDenunciante,
-        indirizzoDenunciante: indirizzoDenunciante,
-        capDenunciante: capDenunciante,
-        provinciaDenunciante: provinciaDenunciante,
-        cellulareDenunciante: cellulareDenunciante,
-        emailDenunciante: emailDenunciante,
-        tipoDocDenunciante: tipoDocDenunciante!,
-        numeroDocDenunciante: numeroDocDenunciante!,
-        scadenzaDocDenunciante: scadenzaDocDenunciante,
-        categoriaDenuncia: categoriaDenuncia,
-        nomeVittima: nomeVittima,
-        denunciato: denunciato,
-        descrizione: descrizione,
-        cognomeVittima: cognomeVittima,
-        alreadyFiled: alreadyFiled,
-        consenso: consenso,
-        cognomeUff: null,
-        coordCaserma: null,
-        dataDenuncia: today,
-        idUff: null,
-        idUtente: user!.uid,
-        nomeCaserma: null,
-        nomeUff: null,
-        statoDenuncia: StatoDenuncia.NonInCarico,
-        tipoUff: null,
-        indirizzoCaserma: null,
-        gradoUff: null,
-        regioneDenunciante: regioneDenunciante, //AGGIUNTO
-        mediaUrls: mediaUrls, //Aggiunto per img
+      id: null,
+      nomeDenunciante: nomeDenunciante,
+      cognomeDenunciante: cognomeDenunciante,
+      indirizzoDenunciante: indirizzoDenunciante,
+      capDenunciante: capDenunciante,
+      provinciaDenunciante: provinciaDenunciante,
+      cellulareDenunciante: cellulareDenunciante,
+      emailDenunciante: emailDenunciante,
+      tipoDocDenunciante: tipoDocDenunciante!,
+      numeroDocDenunciante: numeroDocDenunciante!,
+      scadenzaDocDenunciante: scadenzaDocDenunciante,
+      categoriaDenuncia: categoriaDenuncia,
+      nomeVittima: nomeVittima,
+      denunciato: denunciato,
+      descrizione: descrizione,
+      cognomeVittima: cognomeVittima,
+      alreadyFiled: alreadyFiled,
+      consenso: consenso,
+      cognomeUff: null,
+      coordCaserma: null,
+      dataDenuncia: today,
+      idUff: null,
+      idUtente: user!.uid,
+      nomeCaserma: null,
+      nomeUff: null,
+      statoDenuncia: StatoDenuncia.NonInCarico,
+      tipoUff: null,
+      indirizzoCaserma: null,
+      gradoUff: null,
+      regioneDenunciante: regioneDenunciante,
+      //AGGIUNTO
+      mediaUrls: mediaUrls, //Aggiunto per img
     );
     when(dao.addDenuncia(denuncia)).thenAnswer((realInvocation) => Future((() {
           return "someuid";
@@ -211,55 +220,56 @@ void main() {
       DenunciaDao().updateId(denuncia.getId);
     });
 
-    return "OK";
+    return "Corretto";
   }
 
   group("AddDenuncia", () {
-
     //formato indirizzo
     test("TC_GD.1.1_1 ", (() async {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
-      String indirizzoDenunciante = "Via Rossi";
+      String indirizzoDenunciante = "Via Traversa Taurano";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
-              cognomeDenunciante: cognomeDenunciante,
-              regioneDenunciante: regioneDenunciante, //AGGIUNTO
-              indirizzoDenunciante: indirizzoDenunciante,
-              provinciaDenunciante: provinciaDenunciante,
-              cellulareDenunciante: cellulareDenunciante,
-              emailDenunciante: emailDenunciante,
-              tipoDocDenunciante: tipoDocDenunciante,
-              numeroDocDenunciante: numeroDocDenunciante,
-              scadenzaDocDenunciante: scadenzaDocDenunciante,
-              categoriaDenuncia: categoriaDenuncia,
-              nomeVittima: nomeVittima,
-              denunciato: denunciato,
-              descrizione: descrizione,
-              cognomeVittima: cognomeVittima,
-              consenso: consenso,
-              alreadyFiled: alreadyFiled,
-              nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante,
-              mediaUrls: mediaUrls,) ==
+            cognomeDenunciante: cognomeDenunciante,
+            regioneDenunciante: regioneDenunciante,
+            //AGGIUNTO
+            indirizzoDenunciante: indirizzoDenunciante,
+            provinciaDenunciante: provinciaDenunciante,
+            cellulareDenunciante: cellulareDenunciante,
+            emailDenunciante: emailDenunciante,
+            tipoDocDenunciante: tipoDocDenunciante,
+            numeroDocDenunciante: numeroDocDenunciante,
+            scadenzaDocDenunciante: scadenzaDocDenunciante,
+            categoriaDenuncia: categoriaDenuncia,
+            nomeVittima: nomeVittima,
+            denunciato: denunciato,
+            descrizione: descrizione,
+            cognomeVittima: cognomeVittima,
+            consenso: consenso,
+            alreadyFiled: alreadyFiled,
+            nomeDenunciante: nomeDenunciante,
+            capDenunciante: capDenunciante,
+            mediaUrls: mediaUrls,
+          ) ==
           "Errore: formato indirizzo non rispettato");
     }));
 
@@ -273,42 +283,42 @@ void main() {
           "Via Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fermentum mi a nibh rutrum, sed scelerisque enim efficitur. Fusce accumsan id mi quis hendrerit. Vivamus ut tincidunt orci, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];;
 
       assert(await funzioneTest(
-              cognomeDenunciante: cognomeDenunciante,
-              indirizzoDenunciante: indirizzoDenunciante,
-              provinciaDenunciante: provinciaDenunciante,
-              cellulareDenunciante: cellulareDenunciante,
-              emailDenunciante: emailDenunciante,
-              tipoDocDenunciante: tipoDocDenunciante,
-              numeroDocDenunciante: numeroDocDenunciante,
-              scadenzaDocDenunciante: scadenzaDocDenunciante,
-              categoriaDenuncia: categoriaDenuncia,
-              nomeVittima: nomeVittima,
-              denunciato: denunciato,
-              descrizione: descrizione,
-              cognomeVittima: cognomeVittima,
-              consenso: consenso,
-              alreadyFiled: alreadyFiled,
-              nomeDenunciante: nomeDenunciante,
-              capDenunciante: capDenunciante,
-              regioneDenunciante: regioneDenunciante,
-              mediaUrls: mediaUrls, //AGGIUNTO
-      ) ==
+            cognomeDenunciante: cognomeDenunciante,
+            indirizzoDenunciante: indirizzoDenunciante,
+            provinciaDenunciante: provinciaDenunciante,
+            cellulareDenunciante: cellulareDenunciante,
+            emailDenunciante: emailDenunciante,
+            tipoDocDenunciante: tipoDocDenunciante,
+            numeroDocDenunciante: numeroDocDenunciante,
+            scadenzaDocDenunciante: scadenzaDocDenunciante,
+            categoriaDenuncia: categoriaDenuncia,
+            nomeVittima: nomeVittima,
+            denunciato: denunciato,
+            descrizione: descrizione,
+            cognomeVittima: cognomeVittima,
+            consenso: consenso,
+            alreadyFiled: alreadyFiled,
+            nomeDenunciante: nomeDenunciante,
+            capDenunciante: capDenunciante,
+            regioneDenunciante: regioneDenunciante,
+            mediaUrls: mediaUrls, //AGGIUNTO
+          ) ==
           "Errore: lunghezza indirizzo non rispettata");
     }));
 
@@ -321,24 +331,25 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];;
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
-              regioneDenunciante: regioneDenunciante, //AGGIUNTO
+              regioneDenunciante: regioneDenunciante,
+              //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -368,24 +379,25 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110704543534534534";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];;
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
-              regioneDenunciante: regioneDenunciante, //AGGIUNTO
+              regioneDenunciante: regioneDenunciante,
+              //AGGIUNTO
               indirizzoDenunciante: indirizzoDenunciante,
               provinciaDenunciante: provinciaDenunciante,
               cellulareDenunciante: cellulareDenunciante,
@@ -415,20 +427,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SUS";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];;
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -462,41 +474,42 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
       String? numeroDocDenunciante = "123456";
       Timestamp scadenzaDocDenunciante =
-      Timestamp.fromDate(DateTime.parse("2030-12-12"));
+          Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];;
 
       assert(await funzioneTest(
-          cognomeDenunciante: cognomeDenunciante,
-          regioneDenunciante: regioneDenunciante, //Aggiunto
-          indirizzoDenunciante: indirizzoDenunciante,
-          provinciaDenunciante: provinciaDenunciante,
-          cellulareDenunciante: cellulareDenunciante,
-          emailDenunciante: emailDenunciante,
-          tipoDocDenunciante: tipoDocDenunciante,
-          numeroDocDenunciante: numeroDocDenunciante,
-          scadenzaDocDenunciante: scadenzaDocDenunciante,
-          categoriaDenuncia: categoriaDenuncia,
-          nomeVittima: nomeVittima,
-          denunciato: denunciato,
-          descrizione: descrizione,
-          cognomeVittima: cognomeVittima,
-          consenso: consenso,
-          alreadyFiled: alreadyFiled,
-          nomeDenunciante: nomeDenunciante,
-          capDenunciante: capDenunciante,
-          mediaUrls: mediaUrls) ==
+              cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
+              //Aggiunto
+              indirizzoDenunciante: indirizzoDenunciante,
+              provinciaDenunciante: provinciaDenunciante,
+              cellulareDenunciante: cellulareDenunciante,
+              emailDenunciante: emailDenunciante,
+              tipoDocDenunciante: tipoDocDenunciante,
+              numeroDocDenunciante: numeroDocDenunciante,
+              scadenzaDocDenunciante: scadenzaDocDenunciante,
+              categoriaDenuncia: categoriaDenuncia,
+              nomeVittima: nomeVittima,
+              denunciato: denunciato,
+              descrizione: descrizione,
+              cognomeVittima: cognomeVittima,
+              consenso: consenso,
+              alreadyFiled: alreadyFiled,
+              nomeDenunciante: nomeDenunciante,
+              capDenunciante: capDenunciante,
+              mediaUrls: mediaUrls) ==
           "Errore: regione non valida");
     }));
 
@@ -511,18 +524,18 @@ void main() {
       String cellulareDenunciante = "+393802110703";
       String emailDenunciante = "mailSbagliata@dominioincompleto";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];;
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -556,20 +569,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
       Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Nullo; //modificare
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = ["fileaudio.mp4", "documento.pdf"];;
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
           cognomeDenunciante: cognomeDenunciante,
@@ -603,20 +616,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
-      String nomeVittima = "fiefhiueahrfiuhaeiurfhiuaehfiuaehrfiuhea";
-      String denunciato = "Fabio Santini";
+      String nomeVittima = "Lfjjfieqeofeebfbdwfbwkffkfkbsafjfwnkdjwqjfb";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -644,26 +657,26 @@ void main() {
     //lunghezza cognome vittima
     test("TC_GD.1.1_10", (() async {
       String capDenunciante = "84016";
-      String regioneDenunciante = "Campania"; //AGGIUNTO
+      String regioneDenunciante = "Campania";
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
-      String cognomeVittima = "edafaerfaerfeahfheifhiuehfuihaygvyjgjhygjygj";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+      String cognomeVittima = "Ordkwkwjwighwihihewifeqifheienqeioioio";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -697,9 +710,9 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
@@ -707,11 +720,11 @@ void main() {
       String denunciato =
           "Giuseppe Fabio Pierferdinando Santini Quondamangelomaria Garibaldi";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -745,14 +758,14 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sed ipsum at mauris pulvinar auctor. Duis sit amet quam tellus. Suspendisse potenti. Cras leo magna, hendrerit vel nisi eget, egestas fringilla tellus. Cras luctus lacus augue, eu accumsan ante dictum et. Nulla tincidunt ligula ut ultrices laoreet. "
           "Aenean congue nec mi a rhoncus. Donec ligula metus, auctor in libero et, maximus pharetra mi. Integer felis dui, accumsan in diam vitae, placerat sollicitudin turpis. Curabitur at augue varius urna tristique lobortis sed quis purus. Ut ultricies, arcu ut luctus fringilla, ante ligula vulputate dui, vel accumsan erat libero ac magna. Aenean ut laoreet mauris, eu tempus tortor. Nullam venenatis risus ut ex suscipit gravida. In imperdiet tortor quis neque pellentesque porta "
@@ -760,7 +773,7 @@ void main() {
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -794,20 +807,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = false;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -841,20 +854,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = null;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -888,41 +901,45 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
-      Timestamp.fromDate(DateTime.parse("2030-12-12"));
+          Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = ["fileaudio.mp4", "documento.pdf", "invalid.html"];;
+      List<String> mediaUrls = [
+        "fileaudio.mp4",
+        "documento.pdf",
+        "file.html"
+      ];
 
       assert(await funzioneTest(
-          cognomeDenunciante: cognomeDenunciante,
-          regioneDenunciante: regioneDenunciante,
-          indirizzoDenunciante: indirizzoDenunciante,
-          provinciaDenunciante: provinciaDenunciante,
-          cellulareDenunciante: cellulareDenunciante,
-          emailDenunciante: emailDenunciante,
-          tipoDocDenunciante: tipoDocDenunciante,
-          numeroDocDenunciante: numeroDocDenunciante,
-          scadenzaDocDenunciante: scadenzaDocDenunciante,
-          categoriaDenuncia: categoriaDenuncia,
-          nomeVittima: nomeVittima,
-          denunciato: denunciato,
-          descrizione: descrizione,
-          cognomeVittima: cognomeVittima,
-          consenso: consenso,
-          alreadyFiled: alreadyFiled,
-          nomeDenunciante: nomeDenunciante,
-          capDenunciante: capDenunciante,
-          mediaUrls: mediaUrls) ==
+              cognomeDenunciante: cognomeDenunciante,
+              regioneDenunciante: regioneDenunciante,
+              indirizzoDenunciante: indirizzoDenunciante,
+              provinciaDenunciante: provinciaDenunciante,
+              cellulareDenunciante: cellulareDenunciante,
+              emailDenunciante: emailDenunciante,
+              tipoDocDenunciante: tipoDocDenunciante,
+              numeroDocDenunciante: numeroDocDenunciante,
+              scadenzaDocDenunciante: scadenzaDocDenunciante,
+              categoriaDenuncia: categoriaDenuncia,
+              nomeVittima: nomeVittima,
+              denunciato: denunciato,
+              descrizione: descrizione,
+              cognomeVittima: cognomeVittima,
+              consenso: consenso,
+              alreadyFiled: alreadyFiled,
+              nomeDenunciante: nomeDenunciante,
+              capDenunciante: capDenunciante,
+              mediaUrls: mediaUrls) ==
           "Errore: formato media non valido");
     }));
 
@@ -931,25 +948,25 @@ void main() {
       String capDenunciante = "84016";
       String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante =
-          "Albertofeargewrgergfawrtegwegweartgvrwtgvterwgveartw";
+          "AlbertoAlbertoAlbertoAlbertoAlberto";
       String cognomeDenunciante = "Genovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -980,24 +997,24 @@ void main() {
       String regioneDenunciante = "Campania"; //AGGIUNTO
       String nomeDenunciante = "Alberto";
       String cognomeDenunciante =
-          "Genoveseefgwefgwerfgewgfwerfgewgfewrtfgerfgrewfgew";
+          "GenoveseGenoveseGenoveseGenovese";
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "12345678";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -1031,20 +1048,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
-      String? tipoDocDenunciante = "Carta Identitaresgsrtg";
-      String? numeroDocDenunciante = "12345678";
+      String emailDenunciante = "alb.genovese@gmail.com";
+      String? tipoDocDenunciante = "CartaPassaporto";
+      String? numeroDocDenunciante = "AY1234567";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -1078,20 +1095,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
-      String? numeroDocDenunciante = "123456785667rthrthdthrgh";
+      String? numeroDocDenunciante = "AY1234DDYRHIIDWDIWJQO";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -1125,20 +1142,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
       String? numeroDocDenunciante = "123456";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2010-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -1172,20 +1189,20 @@ void main() {
       String indirizzoDenunciante = "Via Traversa Taurano, 46";
       String provinciaDenunciante = "SA";
       String cellulareDenunciante = "+393802110703";
-      String emailDenunciante = "g.ortiz@gmail.com";
+      String emailDenunciante = "alb.genovese@gmail.com";
       String? tipoDocDenunciante = "Carta Identita";
       String? numeroDocDenunciante = "123456";
       Timestamp scadenzaDocDenunciante =
           Timestamp.fromDate(DateTime.parse("2030-12-12"));
       CategoriaDenuncia categoriaDenuncia = CategoriaDenuncia.Colore;
       String nomeVittima = "Gonzalo";
-      String denunciato = "Fabio Santini";
+      String denunciato = "Jimmy Sbacco";
       String descrizione =
-          "Il signor Fabio Santini il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
+          "Il signor Jimmy Sbacco il giorno 20/03/2023 mi ha negato il servizio nel suo ristorante usando come motivazione che essendo di colore non potessi permettermi di pagare il conto.";
       String cognomeVittima = "Ortiz";
       bool consenso = true;
       bool? alreadyFiled = false;
-      List<String> mediaUrls = [];
+      List<String> mediaUrls = ["img.png","video.mp4","audio.mp3"];
 
       assert(await funzioneTest(
               cognomeDenunciante: cognomeDenunciante,
@@ -1209,6 +1226,5 @@ void main() {
               mediaUrls: mediaUrls) ==
           "Corretto");
     }));
-
   });
 }
