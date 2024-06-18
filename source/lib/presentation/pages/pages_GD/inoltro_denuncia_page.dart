@@ -72,7 +72,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
     "Sardegna",
     "Sicilia",
     "Toscana",
-    "Trentino-Alto Adige",
+    "Trentino Alto Adige",
     "Umbria",
     "Valle d'Aosta",
     "Veneto"
