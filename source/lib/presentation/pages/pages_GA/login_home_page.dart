@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:report_it/presentation/pages/pages_GA/login_user_page.dart';
 import 'package:report_it/presentation/widget/styles.dart';
-
 import '../../../application/repository/authentication_controller.dart';
 import 'authentication_wrapper.dart';
 import '../navigation_animations.dart';
@@ -142,6 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                                 margin:
                                     const EdgeInsets.fromLTRB(40, 10, 40, 10),
                                 child: TextFormField(
+                                  key: ValueKey('E-mail'),
                                   controller: emailController,
                                   decoration: const InputDecoration(
                                     prefixIcon: Icon(Icons.email),
@@ -170,6 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: TextFormField(
+                                  key: ValueKey('Password'),
                                   obscureText: true,
                                   controller: passwordController,
                                   decoration: const InputDecoration(
@@ -201,6 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                                 margin:
                                     const EdgeInsets.symmetric(vertical: 30),
                                 child: ElevatedButton(
+                                    key: ValueKey('Accedi'),
                                     style: ElevatedButton.styleFrom(
                                       padding: const EdgeInsets.all(20),
                                       backgroundColor: Colors.white,

@@ -86,7 +86,7 @@ dependencies:
   fl_chart: ^0.68.0
   image_picker: ^1.1.1
   permission_handler: ^10.0.0
-  device_info_plus: ^6.0.0
+  device_info_plus: ^10.1.0
   video_player: ^2.8.6
   flutter_widget_from_html_core: ^0.14.12
 
@@ -95,6 +95,8 @@ dependency_overrides:
 
 dev_dependencies: 
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to

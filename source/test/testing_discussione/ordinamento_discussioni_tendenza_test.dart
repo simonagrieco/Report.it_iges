@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:report_it/data/models/forum_dao.dart';
 import 'package:report_it/application/entity/entity_GF/discussione_entity.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
