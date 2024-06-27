@@ -40,7 +40,24 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      expect(find.byType(MyApp), findsOneWidget);
+      // Aspetta che il primo SnackBar ("Validazione in corso...") venga mostrato e poi scompaia
+      await tester.pump(Duration(seconds: 5));
+      await tester.pumpAndSettle(); // Assicurati che il secondo SnackBar sia visualizzato
+
+      // Polling per trovare il secondo SnackBar
+      bool foundSnackBar = false;
+      for (int i = 0; i < 10; i++) {
+        await tester.pump();
+        if (find.text('L\'indirizzo email inserito non è valido').evaluate().isNotEmpty) {
+          foundSnackBar = true;
+          break;
+        }
+        await tester.pump(Duration(milliseconds: 100));
+      }
+
+      // Verifica che il messaggio di errore sia mostrato
+      expect(foundSnackBar, true);
+
     });
   });
 
@@ -75,7 +92,24 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      expect(find.byType(MyApp), findsOneWidget);
+      // Aspetta che il primo SnackBar ("Validazione in corso...") venga mostrato e poi scompaia
+      await tester.pump(Duration(seconds: 5));
+      await tester.pumpAndSettle(); // Assicurati che il secondo SnackBar sia visualizzato
+
+      // Polling per trovare il secondo SnackBar
+      bool foundSnackBar = false;
+      for (int i = 0; i < 10; i++) {
+        await tester.pump();
+        if (find.text('Errore nell\'accesso').evaluate().isNotEmpty) {
+          foundSnackBar = true;
+          break;
+        }
+        await tester.pump(Duration(milliseconds: 100));
+      }
+
+      // Verifica che il messaggio di errore sia mostrato
+      expect(foundSnackBar, true);
+
     });
   });
 
@@ -110,7 +144,23 @@ void main() {
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
-      expect(find.byType(MyApp), findsOneWidget);
+      // Aspetta che il primo SnackBar ("Validazione in corso...") venga mostrato e poi scompaia
+      await tester.pump(Duration(seconds: 5));
+      await tester.pumpAndSettle(); // Assicurati che il secondo SnackBar sia visualizzato
+
+      // Polling per trovare il secondo SnackBar
+      bool foundSnackBar = false;
+      for (int i = 0; i < 10; i++) {
+        await tester.pump();
+        if (find.text('Password errata').evaluate().isNotEmpty) {
+          foundSnackBar = true;
+          break;
+        }
+        await tester.pump(Duration(milliseconds: 100));
+      }
+
+      // Verifica che il messaggio di errore sia mostrato
+      expect(foundSnackBar, true);
     });
   });
 
@@ -143,9 +193,27 @@ void main() {
 
       // Tap sul pulsante di login
       await tester.tap(loginButton);
+      await tester.pump();
+
       await tester.pumpAndSettle();
 
-      expect(find.byType(MyApp), findsOneWidget);
+      // Aspetta che il primo SnackBar ("Validazione in corso...") venga mostrato e poi scompaia
+      await tester.pump(Duration(seconds: 5));
+      await tester.pumpAndSettle(); // Assicurati che il secondo SnackBar sia visualizzato
+
+      // Polling per trovare il secondo SnackBar
+      bool foundSnackBar = false;
+      for (int i = 0; i < 10; i++) {
+        await tester.pump();
+        if (find.text('Password errata').evaluate().isNotEmpty) {
+          foundSnackBar = true;
+          break;
+        }
+        await tester.pump(Duration(milliseconds: 100));
+      }
+
+      // Verifica che il messaggio di errore sia mostrato
+      expect(foundSnackBar, true);
     });
   });
 

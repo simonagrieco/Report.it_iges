@@ -7,10 +7,8 @@ import 'package:report_it/application/entity/entity_GA/spid_entity.dart';
 import 'package:report_it/application/entity/entity_GA/tipo_utente.dart';
 import 'package:report_it/application/entity/entity_GD/categoria_denuncia.dart';
 import 'package:report_it/application/repository/denuncia_controller.dart';
-
 import '../../../application/entity/entity_GA/super_utente.dart';
 import '../../widget/styles.dart';
-
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -19,6 +17,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 class InoltroDenuncia extends StatefulWidget {
   final SuperUtente utente;
   final SPID spid;
+
   InoltroDenuncia({required this.utente, required this.spid});
 
   @override
@@ -28,6 +27,7 @@ class InoltroDenuncia extends StatefulWidget {
 
 class _InoltroDenuncia extends State<InoltroDenuncia> {
   _InoltroDenuncia({required this.utente, required this.spid});
+
   final SuperUtente utente;
   final SPID spid;
 
@@ -89,8 +89,6 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   bool consensoController = false;
   late bool alreadyFiledController;
 
-
-
   @override
   void initState() {
     nameController = TextEditingController(text: spid.nome);
@@ -110,7 +108,6 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
 
   @override
   Widget build(BuildContext context) {
-
     final consensoWidget = Wrap(
       children: [
         Column(
@@ -251,6 +248,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                       style: ThemeText.corpoInoltro,
                     ),
                     TextFormField(
+                      key: ValueKey('Nome vittima'),
                       decoration:
                           const InputDecoration(labelText: 'Nome vittima'),
                       controller: nomeVittimaController,
@@ -262,6 +260,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                       },
                     ),
                     TextFormField(
+                      key: ValueKey('Cognome vittima'),
                       decoration:
                           const InputDecoration(labelText: 'Cognome vittima'),
                       controller: cognomeVittimaController,
@@ -272,7 +271,9 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               )
@@ -316,7 +317,6 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
     );
 
     return Consumer<SuperUtente?>(
-
       builder: (context, utente, _) {
         if (utente == null) {
           return const Text("Non sei loggato");
@@ -339,7 +339,9 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
             body: Theme(
               data: ThemeData(
                 colorScheme: const ColorScheme.light(
-                    primary: Color.fromRGBO(219, 29, 69, 1)).copyWith(background: ThemeText.theme.colorScheme.background),
+                        primary: Color.fromRGBO(219, 29, 69, 1))
+                    .copyWith(
+                        background: ThemeText.theme.colorScheme.background),
               ),
               child: Stepper(
                 controlsBuilder: (context, details) {
@@ -399,6 +401,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                       child: Column(
                         children: <Widget>[
                           TextFormField(
+                            key: ValueKey('Nome'),
                             decoration:
                                 const InputDecoration(labelText: 'Nome'),
                             controller: nameController,
@@ -410,6 +413,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             },
                           ),
                           TextFormField(
+                            key: ValueKey('Cognome'),
                             decoration:
                                 const InputDecoration(labelText: 'Cognome'),
                             controller: surnameController,
@@ -422,12 +426,15 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                           ),
                           //AGGIUNTO
                           TextFormField(
+                            key: ValueKey('Regione'),
                             decoration:
-                            const InputDecoration(labelText: 'Regione'),
+                                const InputDecoration(labelText: 'Regione'),
                             controller: regioneController,
                             validator: (value) {
                               String? valueLowerCase = value?.toLowerCase();
-                              bool isValidRegion = regioniItaliane.any((regione) => regione.toLowerCase() == valueLowerCase);
+                              bool isValidRegion = regioniItaliane.any(
+                                  (regione) =>
+                                      regione.toLowerCase() == valueLowerCase);
 
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci la regione.';
@@ -438,6 +445,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             },
                           ),
                           TextFormField(
+                            key: ValueKey('Indirizzo'),
                             decoration:
                                 const InputDecoration(labelText: 'Indirizzo'),
                             controller: indirizzoController,
@@ -451,6 +459,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             },
                           ),
                           TextFormField(
+                            key: ValueKey('CAP'),
                             decoration: const InputDecoration(labelText: 'CAP'),
                             controller: capController,
                             validator: (value) {
@@ -463,6 +472,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             },
                           ),
                           TextFormField(
+                            key: ValueKey('Provincia'),
                             decoration: const InputDecoration(
                                 labelText: 'Sigla provincia'),
                             controller: provinciaController,
@@ -476,6 +486,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             },
                           ),
                           TextFormField(
+                            key: ValueKey('Numero telefonico'),
                             keyboardType: TextInputType.phone,
                             controller: numberController,
                             decoration: const InputDecoration(
@@ -490,6 +501,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             },
                           ),
                           TextFormField(
+                            key: ValueKey('E-mail'),
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
                             decoration: const InputDecoration(
@@ -704,6 +716,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             height: 20,
                           ),
                           TextFormField(
+                            key: ValueKey('Nome oppressore'),
                             decoration: const InputDecoration(
                                 labelText: 'Nome oppressore'),
                             controller: oppressoreController,
@@ -739,6 +752,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             height: 20,
                           ),
                           TextFormField(
+                            key: ValueKey('Vicenda'),
                             decoration: const InputDecoration(
                                 labelText: 'Scrivi qui la vicenda'),
                             controller: descrizioneController,
@@ -749,13 +763,17 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 40,),
+                          SizedBox(
+                            height: 40,
+                          ),
                           //Aggiunto per img
                           Text(
                             "Se in possesso, carica contenuti multimediali relativi alla vicenda (foto, audio, video e/o documenti)",
                             style: ThemeText.corpoInoltro,
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(
+                            height: 10,
+                          ),
                           ElevatedButton(
                             onPressed: _pickFiles, //richiama metodo
                             child: const Text("Seleziona file"),
@@ -763,25 +781,27 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                           const SizedBox(height: 10),
                           _selectedFiles.isNotEmpty
                               ? Wrap(
-                            children: _selectedFiles.map((file) {
-                              final fileName = file.path.split('/').last;
-                              return Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  color: Colors.grey[200],
-                                  child: Text(
-                                    fileName,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                          )
+                                  children: _selectedFiles.map((file) {
+                                    final fileName = file.path.split('/').last;
+                                    return Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        color: Colors.grey[200],
+                                        child: Text(
+                                          fileName,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                )
                               : const Text("Nessuna file selezionato."),
-                          SizedBox(height: 20,)
+                          SizedBox(
+                            height: 20,
+                          )
                         ],
                       ),
                     ),
@@ -843,17 +863,20 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
       return;
     }
 
-    if (_currentStep == 3 && (_formKey3.currentState == null || !_formKey3.currentState!.validate())) {
+    if (_currentStep == 3 &&
+        (_formKey3.currentState == null ||
+            !_formKey3.currentState!.validate())) {
       return;
     }
 
-    if (_currentStep == 4 && (_formKey4.currentState == null || !_formKey4.currentState!.validate())) {
+    if (_currentStep == 4 &&
+        (_formKey4.currentState == null ||
+            !_formKey4.currentState!.validate())) {
       return;
     }
 
     _currentStep <= 7 ? setState(() => _currentStep += 1) : null;
   }
-
 
   cancel() {
     _currentStep > 0 ? setState(() => _currentStep -= 1) : null;
@@ -870,25 +893,26 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
         Timestamp.fromDate(spidUtente.getDataScadenzaDocumento);
 
     var result = control.addDenunciaControl(
-        nomeDenunciante: nameController.text,
-        cognomeDenunciante: surnameController.text,
-        regioneDenunciante: regioneController.text, //AGGIUNTO
-        indirizzoDenunciante: indirizzoController.text,
-        capDenunciante: capController.text,
-        provinciaDenunciante: provinciaController.text,
-        cellulareDenunciante: numberController.text,
-        emailDenunciante: emailController.text,
-        tipoDocDenunciante: spidUtente.tipoDocumento,
-        numeroDocDenunciante: spidUtente.numeroDocumento,
-        scadenzaDocDenunciante: convertedDate,
-        categoriaDenuncia: CategoriaDenuncia.values.byName(discriminazione!),
-        nomeVittima: nomeVittimaController.text,
-        denunciato: oppressoreController.text,
-        descrizione: descrizioneController.text,
-        cognomeVittima: cognomeVittimaController.text,
-        consenso: consensoController,
-        alreadyFiled: alreadyFiledController,
-        imageFiles: _selectedFiles, //aggiunto per img
+      nomeDenunciante: nameController.text,
+      cognomeDenunciante: surnameController.text,
+      regioneDenunciante: regioneController.text,
+      //AGGIUNTO
+      indirizzoDenunciante: indirizzoController.text,
+      capDenunciante: capController.text,
+      provinciaDenunciante: provinciaController.text,
+      cellulareDenunciante: numberController.text,
+      emailDenunciante: emailController.text,
+      tipoDocDenunciante: spidUtente.tipoDocumento,
+      numeroDocDenunciante: spidUtente.numeroDocumento,
+      scadenzaDocDenunciante: convertedDate,
+      categoriaDenuncia: CategoriaDenuncia.values.byName(discriminazione!),
+      nomeVittima: nomeVittimaController.text,
+      denunciato: oppressoreController.text,
+      descrizione: descrizioneController.text,
+      cognomeVittima: cognomeVittimaController.text,
+      consenso: consensoController,
+      alreadyFiled: alreadyFiledController,
+      imageFiles: _selectedFiles, //aggiunto per img
     );
 
     print(await result);
@@ -906,11 +930,22 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
           final result = await FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
-            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx','webp'],
+            allowedExtensions: [
+              'jpg',
+              'jpeg',
+              'png',
+              'mp3',
+              'mp4',
+              'pdf',
+              'doc',
+              'docx',
+              'webp'
+            ],
           );
           if (result != null) {
             setState(() {
-              _selectedFiles.addAll(result.paths.map((path) => File(path!)).toList());
+              _selectedFiles
+                  .addAll(result.paths.map((path) => File(path!)).toList());
             });
           }
         } else {
@@ -923,11 +958,21 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
           final result = await FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
-            allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx'],
+            allowedExtensions: [
+              'jpg',
+              'jpeg',
+              'png',
+              'mp3',
+              'mp4',
+              'pdf',
+              'doc',
+              'docx'
+            ],
           );
           if (result != null) {
             setState(() {
-              _selectedFiles.addAll(result.paths.map((path) => File(path!)).toList());
+              _selectedFiles
+                  .addAll(result.paths.map((path) => File(path!)).toList());
             });
           }
         } else {
@@ -941,11 +986,21 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
         final result = await FilePicker.platform.pickFiles(
           allowMultiple: true,
           type: FileType.custom,
-          allowedExtensions: ['jpg', 'jpeg', 'png', 'mp3','mp4', 'pdf', 'doc', 'docx'],
+          allowedExtensions: [
+            'jpg',
+            'jpeg',
+            'png',
+            'mp3',
+            'mp4',
+            'pdf',
+            'doc',
+            'docx'
+          ],
         );
         if (result != null) {
           setState(() {
-            _selectedFiles.addAll(result.paths.map((path) => File(path!)).toList());
+            _selectedFiles
+                .addAll(result.paths.map((path) => File(path!)).toList());
           });
         }
       } else {
@@ -953,5 +1008,4 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
       }
     }
   }
-
 }
