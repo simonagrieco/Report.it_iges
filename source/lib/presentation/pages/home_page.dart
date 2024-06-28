@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   ShapeBorder? bottomBarShape = const RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.circular(25)),
   );
@@ -34,7 +35,8 @@ class _HomePageState extends State<HomePage> {
 
   List<BottomNavigationBarItem> buttons = [
     BottomNavigationBarItem(
-      icon: Icon(Iconsax.document_normal),
+      key: Key('Denunce'),
+      icon: Icon(Iconsax.document_normal,),
       label: 'denunce',
     ),
     BottomNavigationBarItem(

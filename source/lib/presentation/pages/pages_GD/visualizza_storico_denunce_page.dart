@@ -261,6 +261,7 @@ class _VisualizzaStoricoDenunceUtentePageState
               ),
             ),
             floatingActionButton: Consumer<SuperUtente?>(
+              key: Key("Inoltra"),
               builder: (context, utente, _) {
                 if (utente?.tipo == TipoUtente.Utente) {
                   return FutureBuilder<SPID?>(

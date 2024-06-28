@@ -42,8 +42,8 @@ class _LoginWorkerState extends State<LoginWorker> {
           child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 20),
-                padding: const EdgeInsets.fromLTRB(0, 30, 0, 50),
+                margin: const EdgeInsets.only(top: 19),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: Hero(
                   tag: 'logo',
                   child: Image.asset(
@@ -53,7 +53,7 @@ class _LoginWorkerState extends State<LoginWorker> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.55,
+                height: MediaQuery.of(context).size.height * 0.65,
                 decoration: const BoxDecoration(
                   borderRadius:
                       BorderRadius.only(topRight: Radius.circular(100)),
@@ -82,6 +82,7 @@ class _LoginWorkerState extends State<LoginWorker> {
                                 margin:
                                     const EdgeInsets.fromLTRB(40, 10, 40, 10),
                                 child: TextFormField(
+                                  key: ValueKey('E-mail'),
                                   controller: emailController,
                                   decoration: const InputDecoration(
                                     prefixIcon: Icon(Icons.email),
@@ -111,6 +112,7 @@ class _LoginWorkerState extends State<LoginWorker> {
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: TextFormField(
                                   obscureText: true,
+                                  key: ValueKey('Password'),
                                   controller: passwordController,
                                   decoration: const InputDecoration(
                                     prefixIcon: Icon(Icons.lock),
@@ -141,6 +143,7 @@ class _LoginWorkerState extends State<LoginWorker> {
                                 margin:
                                     const EdgeInsets.symmetric(vertical: 40),
                                 child: ElevatedButton(
+                                    key: ValueKey('Accedi'),
                                     style: ElevatedButton.styleFrom(
                                       padding: const EdgeInsets.all(20),
                                       backgroundColor: Colors.white,
@@ -218,6 +221,7 @@ class _LoginWorkerState extends State<LoginWorker> {
                                             .showSnackBar(snackBar);
                                       }
                                     },
+
                                     child: const Text(
                                       "Accedi",
                                       style: TextStyle(

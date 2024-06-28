@@ -39,7 +39,7 @@ class _InformativaState extends State<Informativa> {
                   options: CarouselOptions(
                     enableInfiniteScroll: true,
                     viewportFraction: 1,
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.85,
                     onPageChanged: (index, reason) {
                       setState(() {
                         _current = index;

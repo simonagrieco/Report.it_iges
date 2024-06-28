@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:report_it/presentation/pages/pages_GA/login_user_page.dart';
@@ -18,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     String userSPID = 'SPID';
@@ -35,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Container(
                 margin: const EdgeInsets.only(top: 19),
-                padding: const EdgeInsets.fromLTRB(0, 100, 0, 50),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                 child: Hero(
                   tag: 'logo',
                   child: Image.asset(
@@ -45,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.55,
+                height: MediaQuery.of(context).size.height * 0.65,
                 decoration: const BoxDecoration(
                   borderRadius:
                       BorderRadius.only(topLeft: Radius.circular(100)),
@@ -53,10 +55,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: Stack(
                   children: [
-                    // Hero(
-                    //   tag: 'redContainer',
-                    //   child:
-                    // ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -69,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: ElevatedButton(
+                            key: ValueKey('Spid'),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(20),
                               minimumSize: const Size(double.infinity, 20),
@@ -95,9 +94,9 @@ class _LoginPageState extends State<LoginPage> {
                                     'Entra con SPID',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -237,7 +236,6 @@ class _LoginPageState extends State<LoginPage> {
                                         String alertMessage = "";
 
                                         switch (loginOutcome) {
-
                                           ///feedback code created by KLS-01 for notifying and moving to the proper page
                                           case 'logged-success':
                                             Navigator.push(
@@ -302,8 +300,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-
-      // ),
     );
   }
 }

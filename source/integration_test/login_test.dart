@@ -15,6 +15,7 @@ void main() {
         options: DefaultFirebaseOptions.currentPlatform,
       );
     });
+
     testWidgets('Formato e-mail non rispettato', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
