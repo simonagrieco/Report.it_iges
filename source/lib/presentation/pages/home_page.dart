@@ -76,18 +76,21 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
 
   void _selectTab(String tabItem, int index) {
+    print('Seleziona tab: $tabItem, indice: $index');
     if (tabItem == _currentPage) {
       _navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
     } else {
-      setStateIfMounted(() {
+      setState(() {
         _currentPage = pageKeys[index];
         _selectedIndex = index;
       });
     }
+    print('Tab corrente: $_currentPage, indice selezionato: $_selectedIndex');
   }
 
   @override
   Widget build(BuildContext context) {
+    print('Build della HomePage. Pagina corrente: $_currentPage, indice selezionato: $_selectedIndex');
 
     return Consumer<SuperUtente?>(
       builder: ((context, value, child) {
@@ -109,11 +112,10 @@ class _HomePageState extends State<HomePage> {
         return WillPopScope(
           onWillPop: () async {
             final isFirstRouteInCurrentTab =
-                !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
+            !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
             if (isFirstRouteInCurrentTab) {
               if (_currentPage != "informativa") {
                 _selectTab("informativa", 2);
-
                 return false;
               }
             }
@@ -154,7 +156,7 @@ class _HomePageState extends State<HomePage> {
               //configuration for SnakeNavigationBar.color
               snakeViewColor: Color.fromRGBO(219, 29, 69, 1),
               selectedItemColor:
-                  snakeShape == SnakeShape.indicator ? selectedColor : null,
+              snakeShape == SnakeShape.indicator ? selectedColor : null,
               unselectedItemColor: Colors.blueGrey,
 
               showUnselectedLabels: showUnselectedLabels,
@@ -162,6 +164,7 @@ class _HomePageState extends State<HomePage> {
 
               currentIndex: _selectedIndex,
               onTap: (int index) {
+                print('Tapped index: $index');
                 _selectTab(pageKeys[index], index);
               },
               items: buttons,
@@ -175,6 +178,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildOffstageNavigator(String tabItem) {
+    print('Costruzione OffstageNavigator per: $tabItem, visibile: ${_currentPage == tabItem}');
     return Offstage(
       offstage: _currentPage != tabItem,
       child: TabNavigator(
@@ -182,9 +186,5 @@ class _HomePageState extends State<HomePage> {
         tabItem: tabItem,
       ),
     );
-  }
-
-  void setStateIfMounted(f) {
-    if (mounted) setState(f);
   }
 }

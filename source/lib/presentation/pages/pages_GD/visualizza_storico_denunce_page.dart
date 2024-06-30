@@ -261,7 +261,6 @@ class _VisualizzaStoricoDenunceUtentePageState
               ),
             ),
             floatingActionButton: Consumer<SuperUtente?>(
-              key: Key("Inoltra"),
               builder: (context, utente, _) {
                 if (utente?.tipo == TipoUtente.Utente) {
                   return FutureBuilder<SPID?>(
@@ -270,6 +269,7 @@ class _VisualizzaStoricoDenunceUtentePageState
                     builder:
                         (BuildContext context, AsyncSnapshot<SPID?> snapshot) {
                       return FloatingActionButton.extended(
+                        key: Key('Inoltra'),
                         label: const Text("Inoltra"),
                         onPressed: () {
                           Navigator.push(
