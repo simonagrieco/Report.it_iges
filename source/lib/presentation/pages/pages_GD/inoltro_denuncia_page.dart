@@ -55,6 +55,9 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   final regexCap = RegExp(r"^[0-9]{5}$");
   final regexProvincia = RegExp(r"^[a-zA-Z]{2}$");
   final regexCellulare = RegExp(r"^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$");
+  final regexNomeCognome = RegExp(r"^(?=.{1,30}$)[A-Za-zÀ-ÿ]{1,15}( [A-Za-zÀ-ÿ]{1,15})?$/gm");
+  final regexDescrizione = RegExp(r"^[\s\S]{0,500}$");
+
   List<String> regioniItaliane = [
     "Abruzzo",
     "Basilicata",
@@ -178,6 +181,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         margin: const EdgeInsets.symmetric(vertical: 30),
                         child: ElevatedButton(
+                          key: Key("InoltraDenuncia"),
                           onPressed: () {
                             addRecord();
                             Navigator.pop(context);
@@ -255,6 +259,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Per favore, inserisci il nome della vittima';
+                        } else if (!regexNomeCognome.hasMatch(value)) {
+                          return 'Per favore, inserisci un nome valido.';
                         }
                         return null;
                       },
@@ -267,6 +273,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Per favore, inserisci il cognome della vittima';
+                        } else if (!regexNomeCognome.hasMatch(value)) {
+                          return 'Per favore, inserisci un cognome valido.';
                         }
                         return null;
                       },
@@ -410,6 +418,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci il nome.';
+                              } else if (!regexNomeCognome.hasMatch(value)) {
+                                return 'Per favore, inserisci un nome valido.';
                               }
                               return null;
                             },
@@ -422,6 +432,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci il cognome.';
+                              } else if (!regexNomeCognome.hasMatch(value)) {
+                                return 'Per favore, inserisci un cognome valido.';
                               }
                               return null;
                             },
@@ -725,6 +737,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci il nome dell\'oppressore';
+                              } else if (!regexNomeCognome.hasMatch(value)) {
+                                return 'Per favore, inserisci un nome valido.';
                               }
                               return null;
                             },
@@ -761,6 +775,8 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Per favore, inserisci una descrizione';
+                              }  else if (!regexDescrizione.hasMatch(value)) {
+                                return 'Per favore, inserisci una descrizione valida.';
                               }
                               return null;
                             },
@@ -800,7 +816,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                                     );
                                   }).toList(),
                                 )
-                              : const Text("Nessuna file selezionato."),
+                              : const Text("Nessun file selezionato."),
                           SizedBox(
                             height: 20,
                           )
