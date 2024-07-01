@@ -349,7 +349,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                     return Row(
                       children: <Widget>[
                         ElevatedButton(
-                          key: Key("Continua"),
+                          key: Key("Continua1"),
                           onPressed: details.onStepContinue,
                           style: ThemeText.bottoneRosso,
                           child: const Text('Continua', style: TextStyle(color: Colors.white),),

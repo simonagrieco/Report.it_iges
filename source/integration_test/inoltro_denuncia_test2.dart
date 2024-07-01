@@ -7,60 +7,65 @@ import 'package:integration_test/integration_test.dart';
 import 'package:report_it/firebase_options.dart';
 import 'package:report_it/main.dart' as app;
 
-
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-
-  group('TC_GA.2_1', () {
+  group('Inoltro denuncia - Integration Testing', () {
     setUpAll(() async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
     });
 
-    testWidgets('TC_GA.2_1', (WidgetTester tester)
-    async {
-
+    //regione
+    testWidgets('TC_GD.1_6', (WidgetTester tester) async {
       app.main();
-
       await tester.pumpAndSettle();
 
-      print("sono qua!");
+      print("Inizio!");
 
       await LoginHelper.login(tester);
 
-      print("sono qua 2!");
+      print("Loggato!");
 
       await ensureVisibleAndTap(tester, find.byIcon(Iconsax.document_normal));
       await tester.pumpAndSettle();
 
-      print("sono qua 3!");
-
       // Esegui il pull-to-refresh
       //await performPullToRefresh(tester, find.byType(RefreshIndicator));
 
-
-      ensureVisibleAndTap(tester, find.text('Inoltra'));
+      await ensureVisibleAndTap(tester, find.text('Inoltra'));
       await tester.pumpAndSettle();
-
 
       final nomeField = find.byKey(ValueKey('Regione'));
       await waitForElement(tester, nomeField);
-      await tester.enterText(nomeField, 'Campania');
+      await tester.enterText(nomeField, 'campnia');
       await tester.pumpAndSettle();
 
-      final gesture = await tester.startGesture(Offset(0, 300)); //Position of the scrollview
-      await gesture.moveBy(Offset(0, -350)); //How much to scroll by
+      final gesture = await tester
+          .startGesture(Offset(0, 300)); //Position of the scrollview
+      await gesture.moveBy(Offset(0, -150)); //How much to scroll by
       await tester.pumpAndSettle();
 
-      await ensureVisibleAndTap(tester, find.byKey(ValueKey('Continua')));
+      await ensureVisibleAndTap(tester, find.byKey(ValueKey('Continua1')));
 
-      await tester.pump(Duration(seconds: 15));
+      await tester.pump(Duration(seconds: 10));
 
-    }
-  );
-});
+      // Trovare messaggio errore
+      bool foundError = false;
+
+      if (find
+          .text('Par favore, inserisci una regione valida.')
+          .evaluate()
+          .isNotEmpty) {
+        foundError = true;
+      }
+      await tester.pumpAndSettle();
+
+      // Verifica che il messaggio di errore sia mostrato
+      expect(foundError, true);
+    });
+  });
 }
 
 /*Future<void> performPullToRefresh(WidgetTester tester, Finder refreshIndicatorFinder) async {
