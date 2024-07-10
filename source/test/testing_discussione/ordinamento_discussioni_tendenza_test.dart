@@ -148,7 +148,22 @@ void main() {
   }
 
   group('Test Ordinamento Discussioni', () {
+
     test('TC_GF.7_1', () {
+      List<Discussione> discussioniErrate = creaDiscussioniErrate();
+
+      // Ordina le discussioni usando la funzione di ordinamento
+      List<Discussione> discussioniOrdinate = ordinaDiscussioniPerPunteggio(discussioniErrate);
+
+      // Verifica che le discussioni non siano ordinate correttamente
+      expect(discussioniOrdinate[0].titolo, 'Discussione 1'); // Il punteggio più alto simulato come errore
+      expect(discussioniOrdinate[1].titolo, 'Discussione 5');
+      expect(discussioniOrdinate[2].titolo, 'Discussione 4');
+      expect(discussioniOrdinate[3].titolo, 'Discussione 3');
+      expect(discussioniOrdinate[4].titolo, 'Discussione 2'); // Il punteggio più basso simulato come errore
+    });
+
+    test('TC_GF.7_2', () {
 
       List<Discussione> discussioni = creaDiscussioni();
 
@@ -161,20 +176,6 @@ void main() {
       expect(discussioniOrdinate[2].titolo, 'Discussione 4');
       expect(discussioniOrdinate[3].titolo, 'Discussione 3');
       expect(discussioniOrdinate[4].titolo, 'Discussione 1');
-    });
-
-    test('TC_GF.7_2', () {
-      List<Discussione> discussioniErrate = creaDiscussioniErrate();
-
-      // Ordina le discussioni usando la funzione di ordinamento
-      List<Discussione> discussioniOrdinate = ordinaDiscussioniPerPunteggio(discussioniErrate);
-
-      // Verifica che le discussioni non siano ordinate correttamente
-      expect(discussioniOrdinate[0].titolo, 'Discussione 1'); // Il punteggio più alto simulato come errore
-      expect(discussioniOrdinate[1].titolo, 'Discussione 5');
-      expect(discussioniOrdinate[2].titolo, 'Discussione 4');
-      expect(discussioniOrdinate[3].titolo, 'Discussione 3');
-      expect(discussioniOrdinate[4].titolo, 'Discussione 2'); // Il punteggio più basso simulato come errore
     });
   });
 }
