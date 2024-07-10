@@ -12,14 +12,14 @@ import 'package:report_it/presentation/widget/like.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Tendenze forum - Integration Testing', () {
+  group('TC_GF.7_2', () {
     setUpAll(() async {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
     });
 
-    testWidgets('TC_GF.7_2', (WidgetTester tester) async {
+    testWidgets('Ordine corretto!', (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
 
@@ -76,29 +76,6 @@ void main() {
       catch(e){
         print("like no");
       }
-
-      /*try {
-        final likeButtonFinder = find.descendant(
-          of: likeWidgetFinder,
-          matching: find.byIcon(Icons.favorite),
-        );
-        expect(likeButtonFinder, findsOneWidget);
-
-        // Clicca sul bottone like
-        await tester.tap(likeButtonFinder);
-        await tester.pumpAndSettle();
-
-        // Verifica che il contatore dei like è incrementato di 1
-        final updatedLikeCount = int.parse(tester
-            .widget<Text>(likeCounterFinder)
-            .data!);
-        expect(updatedLikeCount, initialLikeCount - 1);
-
-        print("Test completato!");
-      }
-      catch(e){
-        print("like no");
-      } */
 
       final gesture = await tester
           .startGesture(Offset(0, 300));
