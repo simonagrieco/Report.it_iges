@@ -59,6 +59,7 @@ class _LikeState extends State<Like> {
       children: [
         Text(numero.toString()),
         Material(
+
           color: Colors.transparent,
           child: !widget.discussione.listaSostegno.contains(utente!.uid)
               ? InkWell(
