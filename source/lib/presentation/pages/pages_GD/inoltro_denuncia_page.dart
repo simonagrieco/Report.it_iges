@@ -55,7 +55,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   final regexCap = RegExp(r"^[0-9]{5}$");
   final regexProvincia = RegExp(r"^[a-zA-Z]{2}$");
   final regexCellulare = RegExp(r"^((00|\+)39[\. ]??)??3\d{2}[\. ]??\d{6,7}$");
-  final regexNomeCognome = RegExp(r"^(?=.{1,30}$)[A-Za-zÀ-ÿ]{1,15}( [A-Za-zÀ-ÿ]{1,15})?$/gm");
+  final regexNomeCognome = RegExp(r"(?=.{1,30}$)[A-Za-zÀ-ÿ]{1,15}([A-Za-zÀ-ÿ]{1,15})?$");
   final regexDescrizione = RegExp(r"^[\s\S]{0,500}$");
 
   List<String> regioniItaliane = [
@@ -197,7 +197,7 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
                           },
                           style: ThemeText.bottoneRosso,
                           child: const Text(
-                            "Inoltra",
+                            "Inoltra", style: TextStyle(color: Colors.white),
                           ),
                         ),
                       )),
@@ -871,26 +871,33 @@ class _InoltroDenuncia extends State<InoltroDenuncia> {
   }
 
   continued() {
-    if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
-      return;
-    }
-
-    if ((_currentStep == 1 && discriminazione == null) ||
-        (_currentStep == 2 && vittimaRadio == null) ||
-        (_currentStep == 5 && alreadyFiledRadio == null)) {
-      return;
-    }
-
-    if (_currentStep == 3 &&
-        (_formKey3.currentState == null ||
-            !_formKey3.currentState!.validate())) {
-      return;
-    }
-
-    if (_currentStep == 4 &&
-        (_formKey4.currentState == null ||
-            !_formKey4.currentState!.validate())) {
-      return;
+    if (_currentStep == 0) {
+      if (_formKey.currentState == null || !_formKey.currentState!.validate()) {
+        return;
+      }
+    } else if (_currentStep == 1) {
+      if (_formKey2.currentState == null || !_formKey2.currentState!.validate()) {
+        return;
+      }
+      if (discriminazione == null) {
+        return;
+      }
+    } else if (_currentStep == 2) {
+      if (vittimaRadio == null) {
+        return;
+      }
+    } else if (_currentStep == 3) {
+      if (_formKey3.currentState == null || !_formKey3.currentState!.validate()) {
+        return;
+      }
+    } else if (_currentStep == 4) {
+      if (_formKey4.currentState == null || !_formKey4.currentState!.validate()) {
+        return;
+      }
+    } else if (_currentStep == 5) {
+      if (alreadyFiledRadio == null) {
+        return;
+      }
     }
 
     _currentStep <= 7 ? setState(() => _currentStep += 1) : null;

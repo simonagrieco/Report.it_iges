@@ -24,7 +24,8 @@ class generaTastoCambiaStato extends StatelessWidget {
               style: ThemeText.bottoneRosso,
               onPressed: () =>
                   showAlertDialogAccetta(context, denuncia, utente),
-              child: const Text("Prendi in carico"));
+              child: const Text("Prendi in carico", style: TextStyle(color: Colors.white))
+          );
         case StatoDenuncia.PresaInCarico:
           return ElevatedButton(
               style: ThemeText.bottoneRosso,
